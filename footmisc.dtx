@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 %% File: footmisc.dtx (C) Copyright 1995-2011 Robin Fairbairns
-%%                    (C) Copyright 2020 Frank Mittelbach
+%%                    (C) Copyright 2018-2022 Frank Mittelbach
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -506,6 +506,8 @@
 % \item[\normalfont\textsf{memoir} class] The class emulates
 %   \textsf{setspace}, and we detect that emulation and deal with it
 %   in the same way as \textsf{setspace}.
+%
+% \iffalse FMi: this should now work
 % \item[\normalfont\textsf{hyperref}] The \textsf{hyperref} package
 %   has ambitions to make hyperlinks from footnote marks to the
 %   corresponding footnote body; naturally this causes grief to
@@ -515,6 +517,8 @@
 %   \quad\verb|\usepackage[hyperfootnotes=false,...]{hyperref}|\\
 %   Further work on the interaction between the two packages is
 %   proposed, but not yet scheduled.
+% \fi
+%
 % \item[\normalfont\textsf{manyfoot}] The \textsf{manyfoot} package
 %   permits several independent sequences of footnotes.  Some
 %   preliminary work towards interworking with \textsf{footmisc} has
@@ -575,17 +579,6 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\ifFN@etex}
-% Check whether we're using etex
-%    \begin{macrocode}
-\newif\ifFN@etex
-\ifx\dimexpr\undefined
-  \FN@etexfalse
-\else
-  \FN@etextrue
-\fi
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\footnotemargin}
 % Finally, we define the length used by the \texttt{marginal} option,
 % and initialise it as if we've not had the option.
@@ -724,17 +717,43 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{The \texttt{bottom} option}
 %
-% \begin{macro}{\ifFN@bottom}
+% \subsection{The \texttt{abovefloats} and \texttt{belowfloats} options}
+%
+% \begin{macro}{\ifFN@abovefloats}
 % All this needs to do is to set a flag to say that it should happen
 %    \begin{macrocode}
-\newif\ifFN@bottom  \FN@bottomfalse
+\newif\ifFN@abovefloats  \FN@abovefloatstrue
+\DeclareOption{abovefloats}{\FN@abovefloatstrue}
+\DeclareOption{belowfloats}{\FN@abovefloatsfalse}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{The \texttt{bottom} and \texttt{moveskip} option}
+%
+% \begin{macro}{\ifFN@bottom}
+% \begin{macro}{\ifFN@moveskip}
+% All this needs to do is to set a flag to say that it should happen. Historically
+% this also
+% moves the footnotes below the bottom floats.
+%    \begin{macrocode}
+\newif\ifFN@bottom        \FN@bottomfalse
 \DeclareOption{bottom}{%
-  \FN@bottomtrue
+  \FN@bottomtrue\FN@abovefloatsfalse
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{\ifFN@moveskip}
+%    \begin{macrocode}
+\newif\ifFN@moveskip      \FN@moveskipfalse
+\DeclareOption{moveskip}{%
+  \FN@moveskiptrue
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 %
 % \subsection{The \texttt{marginal} option}
 %
@@ -1224,12 +1243,8 @@
           }% end of \@makefntext parameter
         }% end of \hbox
         \dp\FN@tempboxa=0pt
-        \ifFN@etex
-          \ht\FN@tempboxa=\dimexpr\wd\FN@tempboxa *
-                          \footnotebaselineskip / \columnwidth\relax
-        \else
-          \ht\FN@tempboxa=\fudgefactor\wd\FN@tempboxa
-        \fi
+        \ht\FN@tempboxa=\dimexpr\wd\FN@tempboxa *
+                        \footnotebaselineskip / \columnwidth\relax
         \box\FN@tempboxa
       \color@endgroup
     }%
@@ -1364,19 +1379,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\fudgefactor}
-% Now we derive a fudge factor from the baselineskip we've just
-% established (we use \cs{dimexpr} if we're in etex, so there's no need
-% for the fudge factor in that case).
-%    \begin{macrocode}
-  \ifFN@etex
-  \else
-    \@tempdima=\footnotebaselineskip \multiply\@tempdima by 1024
-    \divide \@tempdima by \columnwidth \multiply\@tempdima by 64
-    \xdef\fudgefactor{\strip@pt\@tempdima }%
-  \fi
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}{\makefootnoteparagraph}
 % For use in the output routine
@@ -2184,29 +2186,6 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\TextOrMath}
-% This is a stripped down (e-\TeX{} only) version of what appears in
-% fixltx2e.  If the command's already defined, we assume it's that
-% version.
-%    \begin{macrocode}
-\@ifundefined{TextOrMath}{%
-  \@ifundefined{eTeXversion}{%
-    \PackageError{footmisc}{Can't define commands for footnote symbol}%
-                           {Use e-LaTeX, or load package fixltx2e before 
-                             footmisc}%
-  }{%
-    \protected\expandafter\def\csname TextOrMath\space\endcsname{%
-      \ifmmode \expandafter\@secondoftwo
-      \else    \expandafter\@firstoftwo   \fi
-    }
-    \edef\TextOrMath#1#2{%
-      \expandafter\noexpand\csname TextOrMath\space\endcsname
-	{#1}{#2}%
-    }%
-  }%
-}{}
-%    \end{macrocode}
-% \end{macro}
 %
 % \begin{macro}{\FN@orange}
 % \begin{macro}{\@fnsymbol@orange}
