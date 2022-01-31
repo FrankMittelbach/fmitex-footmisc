@@ -9,6 +9,8 @@ module = "footmisc"
 
 typesetfiles  = {"*.tex"}
 
+checkengines = {"pdftex"}
+
 checkruns     = 2
 
 if not release_date then
