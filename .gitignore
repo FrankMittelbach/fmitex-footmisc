@@ -1,0 +1,15 @@
+*.toc
+*.aux
+*.log
+*.glo
+*.hd
+*.idx
+*.out
+build
+*.pdf
+*.blg
+*.lot
+*.ind
+footmisc-ctan.zip
+footmisc-ctan.curlopt
+tmp
