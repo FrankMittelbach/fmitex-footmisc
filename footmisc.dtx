@@ -33,14 +33,14 @@
 %</dtx>
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2020/09/01 v5.5c
+        [2022/01/31 v6.0a
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
                footmisc package source file%
 %</dtx>
 %<*!debugins>
-                   ]% $Id: footmisc.dtx,v 4.25 2011/06/06 14:25:44 rf10 Exp rf10 $
+                   ]
 %</!debugins>
 %    \end{macrocode}
 %
@@ -87,34 +87,35 @@
 % \fi
 %
 
-
+%
+%
 % \title{\texttt{footmisc} ---\\
 %        a portmanteau package\\
 %        for customising footnotes in \LaTeX\thanks{This file has
 %          version number \fileversion, last revised \filedate}}
-% \author{Robin Fairbairns\thanks{University of Cambridge Computer
-%     Laboratory, William Gates Building, J.\,J. Thompson Avenue, 
-%     Cambridge, CB2 0FD, UK
-%     (\texttt{rf10<snail-shape>cam.ac.uk})}}
+% \author{Robin Fairbairns\thanks{Formerly: University of Cambridge Computer
+%     Laboratory, Cambridge, UK} \and
+%   Frank Mittelbach\thanks{Responsible maintainer since 2018}}
 % \maketitle
 %
 % \section*{Copyright statement}
 %
 % \noindent Program: \texttt{footmisc.dtx}\par
-% \noindent Copyright 1995 1996 1998 1999 2001--2003 2008 2009 Robin Fairbairns
+% \noindent Copyright 1995--2011 Robin Fairbairns
+% \noindent Copyright 2018--2022 Robin Fairbairns, Frank Mittelbach
 %
 % This program is offered under the terms
 % of the LaTeX Project Public License, version 1.3c of this license or
 % (at your option) any later version.  The latest version of this
 % license is in http://www.latex-project.org/lppl.txt, and version
 % 1.3c or later is part of all distributions of LaTeX version
-% 2005/12/01 or later.
+% 2008 or later.
 %
-% This work has the LPPL maintenance status `author-maintained'.
+% This work has the LPPL maintenance status `maintained'.
 %
 % \section*{History}
 %
-% This package originated as support of a personal project, which I
+% This package originated as support of a personal project, which I (Robin)
 % was switching to \LaTeX{} 2e over the Christmas holiday period of
 % 1993, using the first \ensuremath{\beta} release.
 %
@@ -122,6 +123,17 @@
 % the time I had released it to CTAN, that name had already been
 % used by a package written by Mark Wooding.  So the package is now
 % known (as you can see) as ``footmisc''.
+%
+% Frank took over maintainence in 2018 but due to other committments never
+% got around finishing the changes he started to make in 2018.
+%
+% In 2022 a few new options (\texttt{abovefloats} and
+% \texttt{belowfloats}) got introduced and the package now works
+% with \textsf{hyperref} regardless of loading order.
+%
+% FMi: TODO support dblfootnotes?
+%
+%
 %
 % \section{User interface~--- package options}
 %
@@ -298,6 +310,35 @@
 % the bottom of pages: if a bottom float appears on a page, \LaTeX{}
 % places the footnote \emph{above} it.  The \texttt{bottom} option
 % places the footnote at the foot of the page.
+%
+%
+% \subsection{Option \texttt{moveskip} (new in 2022)}
+%
+% When the \texttt{bottom} option is not in force (i.e., in the
+% default case) there is a strange discrepancy: on most pages the
+% footnotes are attached a distance of \cs{skip}\cs{footins} from the
+% main text, even if that is run short. However, whenever the is some
+% infinite stretch on the page, e.g., from using \cs{newpage} or
+% \cs{clearpage} the footnotes are pushed to the bottom (in particular
+% on the last page of a document or chapter).
+%
+% This can be corrected by giving the option \texttt{moveskip} in
+% which infinite glue just before the footnotes is removed and placed
+% after them.
+%
+% This has the following effects: if \cs{raggedbottom} is in force,
+% then the footnotes will always stay the same distance from main
+% text and the bottom of the text may vary from page to page.
+% However, if \cs{flushbottom} is force, e.g. in the \texttt{book}
+% class, then the footnotes will only move if there is infinite glue
+% directly at the bottom of the page. Only then, the footnotes will
+% shift upwards.
+%
+%
+% \subsection{Options \texttt{abovefloats} and \texttt{belowfloats} (new in 2022)}
+%
+%  FMi: write documentation
+%
 %
 % \subsection{Option \texttt{marginal}}
 %
