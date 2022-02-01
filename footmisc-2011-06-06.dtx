@@ -1,25 +1,5 @@
-% \iffalse meta-comment
-%
-%% File: footmisc.dtx (C) Copyright 1995-2011 Robin Fairbairns
-%%                    (C) Copyright 2018-2022 Frank Mittelbach
-%
-% It may be distributed and/or modified under the conditions of the
-% LaTeX Project Public License (LPPL), either version 1.3c of this
-% license or (at your option) any later version.  The latest version
-% of this license is in the file
-%
-%    https://www.latex-project.org/lppl.txt
-%
-% This bundle has the status "maintained" and the current maintainer
-% is Frank Mittelbach.
-%
-% The development version of the bundle can be found at
-%
-%    https://github.com/FrankMittelbach/fmitex-footmisc/
-%
-% for those people who are interested or want to report an issue.
-%
-%
+%\iffalse meta-comment, etc.
+%% This is footmisc.dtx, and it's -*-LaTeX-*- text
 %
 % We use the same body for the \cs{ProvidesFile} as for the
 % \cs{ProvidesPackage} command.
@@ -31,21 +11,16 @@
 %<*dtx>
 \ProvidesFile{footmisc.dtx}%
 %</dtx>
-%<+package>\providecommand\DeclareRelease[3]{}
-%<+package>\providecommand\DeclareCurrentRelease[2]{}
-%<+package>
-%<+package>\DeclareRelease{v5}{2011-06-06}{footmisc-2011-06-06.sty}
-%<+package>\DeclareCurrentRelease{}{2022-02-01}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2022/02/01 v6.0a
+        [2011/06/06 v5.5b
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
                footmisc package source file%
 %</dtx>
 %<*!debugins>
-                   ]
+                   ]% $Id: footmisc.dtx,v 4.25 2011/06/06 14:25:44 rf10 Exp rf10 $
 %</!debugins>
 %    \end{macrocode}
 %
@@ -88,39 +63,37 @@
 \end{document}
 %</driver>
 %    \end{macrocode}
-%
 % \fi
 %
-
-%
+% \CheckSum{1711}
 %
 % \title{\texttt{footmisc} ---\\
 %        a portmanteau package\\
 %        for customising footnotes in \LaTeX\thanks{This file has
 %          version number \fileversion, last revised \filedate}}
-% \author{Robin Fairbairns\thanks{Formerly: University of Cambridge Computer
-%     Laboratory, Cambridge, UK} \and
-%   Frank Mittelbach\thanks{Responsible maintainer since 2018}}
+% \author{Robin Fairbairns\thanks{University of Cambridge Computer
+%     Laboratory, William Gates Building, J.\,J. Thompson Avenue, 
+%     Cambridge, CB2 0FD, UK
+%     (\texttt{rf10<snail-shape>cam.ac.uk})}}
 % \maketitle
 %
 % \section*{Copyright statement}
 %
 % \noindent Program: \texttt{footmisc.dtx}\par
-% \noindent Copyright 1995--2011 Robin Fairbairns
-% \noindent Copyright 2018--2022 Robin Fairbairns, Frank Mittelbach
+% \noindent Copyright 1995 1996 1998 1999 2001--2003 2008 2009 Robin Fairbairns
 %
 % This program is offered under the terms
 % of the LaTeX Project Public License, version 1.3c of this license or
 % (at your option) any later version.  The latest version of this
 % license is in http://www.latex-project.org/lppl.txt, and version
 % 1.3c or later is part of all distributions of LaTeX version
-% 2008 or later.
+% 2005/12/01 or later.
 %
-% This work has the LPPL maintenance status `maintained'.
+% This work has the LPPL maintenance status `author-maintained'.
 %
 % \section*{History}
 %
-% This package originated as support of a personal project, which I (Robin)
+% This package originated as support of a personal project, which I
 % was switching to \LaTeX{} 2e over the Christmas holiday period of
 % 1993, using the first \ensuremath{\beta} release.
 %
@@ -128,17 +101,6 @@
 % the time I had released it to CTAN, that name had already been
 % used by a package written by Mark Wooding.  So the package is now
 % known (as you can see) as ``footmisc''.
-%
-% Frank took over maintainence in 2018 but due to other committments never
-% got around finishing the changes he started to make in 2018.
-%
-% In 2022 a few new options (\texttt{abovefloats} and
-% \texttt{belowfloats}) got introduced and the package now works
-% with \textsf{hyperref} regardless of loading order.
-%
-% FMi: TODO support dblfootnotes?
-%
-%
 %
 % \section{User interface~--- package options}
 %
@@ -316,35 +278,6 @@
 % places the footnote \emph{above} it.  The \texttt{bottom} option
 % places the footnote at the foot of the page.
 %
-%
-% \subsection{Option \texttt{moveskip} (new in 2022)}
-%
-% When the \texttt{bottom} option is not in force (i.e., in the
-% default case) there is a strange discrepancy: on most pages the
-% footnotes are attached a distance of \cs{skip}\cs{footins} from the
-% main text, even if that is run short. However, whenever the is some
-% infinite stretch on the page, e.g., from using \cs{newpage} or
-% \cs{clearpage} the footnotes are pushed to the bottom (in particular
-% on the last page of a document or chapter).
-%
-% This can be corrected by giving the option \texttt{moveskip} in
-% which infinite glue just before the footnotes is removed and placed
-% after them.
-%
-% This has the following effects: if \cs{raggedbottom} is in force,
-% then the footnotes will always stay the same distance from main
-% text and the bottom of the text may vary from page to page.
-% However, if \cs{flushbottom} is force, e.g. in the \texttt{book}
-% class, then the footnotes will only move if there is infinite glue
-% directly at the bottom of the page. Only then, the footnotes will
-% shift upwards.
-%
-%
-% \subsection{Options \texttt{abovefloats} and \texttt{belowfloats} (new in 2022)}
-%
-%  FMi: write documentation
-%
-%
 % \subsection{Option \texttt{marginal}}
 %
 % This option adjusts the position of footnote mark relative to the
@@ -511,8 +444,6 @@
 % \item[\normalfont\textsf{memoir} class] The class emulates
 %   \textsf{setspace}, and we detect that emulation and deal with it
 %   in the same way as \textsf{setspace}.
-%
-% \iffalse FMi: this should now work
 % \item[\normalfont\textsf{hyperref}] The \textsf{hyperref} package
 %   has ambitions to make hyperlinks from footnote marks to the
 %   corresponding footnote body; naturally this causes grief to
@@ -522,8 +453,6 @@
 %   \quad\verb|\usepackage[hyperfootnotes=false,...]{hyperref}|\\
 %   Further work on the interaction between the two packages is
 %   proposed, but not yet scheduled.
-% \fi
-%
 % \item[\normalfont\textsf{manyfoot}] The \textsf{manyfoot} package
 %   permits several independent sequences of footnotes.  Some
 %   preliminary work towards interworking with \textsf{footmisc} has
@@ -584,6 +513,17 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\ifFN@etex}
+% Check whether we're using etex
+%    \begin{macrocode}
+\newif\ifFN@etex
+\ifx\dimexpr\undefined
+  \FN@etexfalse
+\else
+  \FN@etextrue
+\fi
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\footnotemargin}
 % Finally, we define the length used by the \texttt{marginal} option,
 % and initialise it as if we've not had the option.
@@ -722,42 +662,17 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%
 % \subsection{The \texttt{bottom} option}
 %
 % \begin{macro}{\ifFN@bottom}
-% All this needs to do is to set a flag to say that it should happen. Historically
-% this also
-% moves the footnotes below the bottom floats.
-%    \begin{macrocode}
-\newif\ifFN@bottom        \FN@bottomfalse
-\DeclareOption{bottom}{%
-  \FN@bottomtrue\FN@abovefloatsfalse
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \subsection{The \texttt{abovefloats}, \texttt{belowfloats},  and \texttt{moveskip} options}
-%
-% \begin{macro}{\ifFN@abovefloats}
 % All this needs to do is to set a flag to say that it should happen
 %    \begin{macrocode}
-\newif\ifFN@abovefloats  \FN@abovefloatstrue
-\DeclareOption{abovefloats}{\FN@abovefloatstrue}
-\DeclareOption{belowfloats}{\FN@abovefloatsfalse}
-%    \end{macrocode}
-% \end{macro}
-%
-%
-% \begin{macro}{\ifFN@moveskip}
-%    \begin{macrocode}
-\newif\ifFN@moveskip      \FN@moveskipfalse
-\DeclareOption{moveskip}{%
-  \FN@moveskiptrue
+\newif\ifFN@bottom  \FN@bottomfalse
+\DeclareOption{bottom}{%
+  \FN@bottomtrue
 }
 %    \end{macrocode}
 % \end{macro}
-%
 %
 % \subsection{The \texttt{marginal} option}
 %
@@ -911,277 +826,265 @@
 %
 % \subsection{The output routine}
 %
-%
-% New version of \cs{@makecol} for the kernel
+% Now; do we need to mess about with the output routine?  If either
+% |para| or |bottom| has been invoked, we do.
 %    \begin{macrocode}
-%---------------------------------------------------------
-\NewMirroredHookPair{cmd/@makecol/before}{cmd/@makecol/after}
-%---------------------------------------------------------
+\let  \if@tempswa  \ifFN@bottom
+\ifFN@para    \@tempswatrue \fi
+\if@tempswa
 %    \end{macrocode}
-
-
-
-%  \begin{macro}{\@makecol}
-%    
-%    \begin{macrocode}
-\def \@makecol {%
-   \UseHook{cmd/@makecol/before}%
-%    \end{macrocode}
+% \dots{} so we've patching to do.
 %
+% First, we ensure that \cs{@makecol} is as expected from the time at
+% which these macros were written: since we're going to patch it, we
+% had better be sure that we're patching the right thing.  (There was
+% a minuscule change to the definition 1999, but this doesn't as far
+% as I can tell make any difference to the semantics of the definition
+% we base our patch on.)
 %    \begin{macrocode}
-   \setbox\@outputbox \box\@cclv
-   \@outputbox@removebottomskip
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-   \@makecol@appendblocks 
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-   \ifvbox\@kludgeins
-      \@makespecialcolbox
-   \else
-      \@makenormalcolbox
-   \fi
-   \global \maxdepth \@maxdepth
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-   \UseHook{cmd/@makecol/before}%
-}
-%    \end{macrocode}
-%  \end{macro}
-
-
-\def \@makenormalcolbox {%
-   \setbox\@outputbox \vbox to\@colht {%
-       \@texttop
-       \@outputbox@depth \dp\@outputbox
-       \unvbox \@outputbox
-       \vskip -\@outputbox@depth
-       \@textbottom
-      }%
-}
-\def \@makespecialcolbox {%
-   \@outputbox@append {\vskip-\@outputbox@depth}%
-   \@tempdima \@colht
-   \ifdim \wd\@kludgeins>\z@
-     \advance \@tempdima -\ht\@outputbox
-     \advance \@tempdima \pageshrink
-     \setbox\@outputbox \vbox to \@colht {%
-       \unvbox\@outputbox
-       \vskip \@tempdima
-       \@textbottom
-       }%
-   \else
-     \advance \@tempdima -\ht\@kludgeins
-     \setbox \@outputbox \vbox to \@colht {%
-       \vbox to \@tempdima {%
-         \unvbox\@outputbox
-         \@textbottom}%
-       \vss}%
-   \fi
-   {\setbox \@tempboxa \box \@kludgeins}%
-}
-
-
-\newdimen\@outputbox@depth
-
-
-%    \cs{@makecol} support macros:
-%    \begin{macrocode}
-%---------------------------------------------------------
-\def\@outputbox@append #1{%
-  \if!\detokenize{#1}!\else
-     \setbox\@outputbox \vbox {%
-       \boxmaxdepth \@maxdepth
-       \@outputbox@depth\dp\@outputbox      % if needed in #1
-       \unvbox \@outputbox
-       #1%
-     }%
-  \fi
-}
-%---------------------------------------------------------
-\def\@outputbox@appendfootnotes #1{%
-   \ifvoid\footins \else
-%   
-     \@makecol@handlesplitfootnotes
-%     
-     \@makecol@preparefootinshook
-%     
-     \@outputbox@append{%
-%
-        #1%                                  %% \vfill or or some other value
-%
-       \vskip \skip\footins
-       \color@begingroup
-         \normalcolor
-         \footnoterule
-         \unvbox \footins                   %% preparefootinshook should update \footins
-       \color@endgroup
-      }%
-  \fi
-}
-
-\let\@outputbox@reinsertbottomskip\relax
-%---------------------------------------------------------
-% with incomplete preparation for tagging commented out
-
-\def\@makecol@handlesplitfootnotes {%
-%  \ifx\splitfootnote@continuation\@empty \else
-%    \setbox\footins\vbox{\splitfootnote@continuation\unvbox\footins}%
-%    \global\let\splitfootnote@continuation\@empty
-%  \fi
-  \ifnum\insertpenalties>\z@
-    \@makecol@splitfootnotemessagehook
-%    \setbox\footins\vbox{\unvbox\footins --- END at split}%
-%    \gdef\splitfootnote@continuation    {--- START after split}%
-  \fi
-}
-%\def\splitfootnote@continuation{}
-%---------------------------------------------------------
-%    \end{macrocode}
-%    This is really a bug fix for the kernel, but perhaps one has to
-%    make it optional because it is in there since day one). If
-%    \cs{raggedbottom} is in force, footnotes get attached to the main
-%    galley at a distance of \cs{footskip} on all pages except on
-%    those that are ended by \cs{newpage} or \cs{clearpage} where the
-%    resulting \cs{vfill} pushes the footnotes to the very bottom.
-%
-%    This is kind of a weird difference to ending a page with
-%    \cs{pagebreak} in that case---in that case the page is also run
-%    short, but the footnote is not pushed to the bottom.
-%    \begin{macrocode}
-\ifFN@moveskip
-  \def\@outputbox@removebottomskip{%
-    \ifx\@textbottom\relax
-      \global\let\@outputbox@reinsertbottomskip\relax
-    \else
-      \@outputbox@append{%
-        \@tempskipa\lastskip
-        \ifnum \gluestretchorder\@tempskipa>\z@
-          \vskip-\@tempskipa
-          \xdef\@outputbox@reinsertbottomskip{\vskip\the\@tempskipa}%
+  \@ifl@t@r\fmtversion{2005/12/01}{%
+    \CheckCommand*\@makecol{\ifvoid \footins
+        \setbox\@outputbox \box\@cclv
+      \else
+        \setbox\@outputbox \vbox{%
+          \boxmaxdepth \@maxdepth                   
+          \unvbox\@cclv
+          \vskip \skip\footins
+          \color@begingroup
+            \normalcolor\footnoterule
+            \unvbox\footins
+          \color@endgroup
+        }%
+      \fi
+      \let \@elt \relax
+      \xdef\@freelist{\@freelist\@midlist}%
+      \global\let\@midlist\@empty
+      \@combinefloats
+      \ifvbox\@kludgeins
+        \@makespecialcolbox
+      \else
+        \setbox\@outputbox \vbox to\@colht{%
+          \@texttop \dimen@\dp\@outputbox
+          \unvbox\@outputbox
+          \vskip -\dimen@\@textbottom
+        }%
+      \fi
+      \global\maxdepth\@maxdepth
+    }
+  }{%
+  \@ifl@t@r\fmtversion{2003/12/01}{%
+    \CheckCommand*\@makecol{\ifvoid \footins
+        \setbox\@outputbox \box\@cclv
+      \else
+        \setbox\@outputbox \vbox{%
+          \boxmaxdepth\@maxdepth
+          \@tempdima\dp\@cclv
+          \unvbox\@cclv
+          \vskip \skip\footins
+          \color@begingroup
+            \normalcolor
+            \footnoterule
+            \unvbox\footins
+          \color@endgroup
+        }%
+      \fi
+      \let \@elt \relax
+      \xdef\@freelist{\@freelist\@midlist}%
+      \global\let\@midlist\@empty
+      \@combinefloats
+      \ifvbox\@kludgeins
+        \@makespecialcolbox
+      \else
+        \setbox\@outputbox \vbox to\@colht{%
+          \@texttop
+          \dimen@\dp\@outputbox
+          \unvbox\@outputbox
+          \vskip -\dimen@
+          \@textbottom
+        }%
+      \fi
+      \global\maxdepth\@maxdepth
+    }%
+  }{%
+    \@ifl@t@r\fmtversion{1999/12/01}{%
+      \CheckCommand*\@makecol{\ifvoid \footins
+          \setbox\@outputbox \box\@cclv
+        \else                           
+          \setbox\@outputbox \vbox{%
+            \boxmaxdepth\@maxdepth
+            \@tempdima\dp\@cclv
+            \unvbox\@cclv
+            \vskip \skip\footins
+            \color@begingroup
+              \normalcolor\footnoterule
+              \unvbox\footins
+            \color@endgroup
+          }%
         \fi
+        \xdef\@freelist{\@freelist\@midlist}%
+        \global\let\@midlist\@empty
+        \@combinefloats
+        \ifvbox\@kludgeins
+          \@makespecialcolbox
+        \else
+          \setbox\@outputbox \vbox to\@colht{%
+            \@texttop \dimen@\dp\@outputbox
+            \unvbox\@outputbox
+            \vskip -\dimen@\@textbottom
+          }%
+        \fi
+        \global\maxdepth\@maxdepth
       }%
-   \fi
-  }
-\else  
-  \let\@outputbox@removebottomskip \relax
-\fi
-%---------------------------------------------------------
-
-% \@combinefloats no longer used
-
-
-\def \@outputbox@appendfloats#1#2{%
-   \let\@elt\relax
-   \xdef\@freelist{\@freelist\@midlist}%
-   \global \let \@midlist \@empty
-   \ifx \@toplist\@empty \else
-     \if!\detokenize{#1}!\else
-       \setbox\@outputbox \vbox {%
-         \boxmaxdepth \@maxdepth
-         #1%
-         \unvbox \@outputbox
-       }%
-     \fi
-     \@cflt
-   \fi
-   \ifx \@botlist\@empty \else
-     \@outputbox@append{#2}%
-     \@cflb
-   \fi
+    }%
+  }{%
+      \CheckCommand*\@makecol{\ifvoid \footins
+        \setbox\@outputbox \box\@cclv
+      \else
+        \setbox\@outputbox \vbox{%
+          \boxmaxdepth\@maxdepth
+          \unvbox\@cclv
+          \vskip \skip\footins
+          \color@begingroup
+            \normalcolor\footnoterule
+            \unvbox\footins
+          \color@endgroup
+        }%
+      \fi
+      \xdef\@freelist{\@freelist\@midlist}%
+      \global\let\@midlist\@empty
+      \@combinefloats
+      \ifvbox\@kludgeins
+        \@makespecialcolbox
+      \else
+        \setbox\@outputbox \vbox to\@colht{%
+          \@texttop \dimen@\dp\@outputbox
+          \unvbox\@outputbox
+          \vskip -\dimen@\@textbottom
+        }%
+      \fi
+      \global\maxdepth\@maxdepth
+    }%
+  }%
 }
-
-
-%---------------------------------------------------------
-%
 %    \end{macrocode}
 %
+% If we're doing paragraph footnotes, the output routine needs
+% different code to place the actual text.  We prepare this code here,
+% since it's potentially used in two different places.
 %
-%    \cs{@makecol} hooks:
+% We prepare the code in a token register to be used at the
+% appropriate place in the patching of \cs{@makecol}; thus it becomes
+% a token register containing code to place stuff in a token register
 %    \begin{macrocode}
-%=========================================================
-\let \@makecol@splitfootnotemessagehook \@empty     % could issue warning if
-                                                    % split footnotes are encountered
-%---------------------------------------------------------
-\let \@makecol@preparefootinshook \@empty  % to support manipulation
-                                           % of footins box (result needs to be
-                                           % moved back in there) 
-%=========================================================
+  \ifFN@para
 %    \end{macrocode}
 %
-%
-%    Footnote box layout for para footnotes;
-%    this would also be the hook to support dblfootnotes (from the
-%    \texttt{dblfnote} package)
+% We make a box out of the paragraph of footnotes, and then stuff the
+% contents of the box into that which is going to be \cs{ship}ped
+% |out|.
 %    \begin{macrocode}
-\ifFN@para
-  \def\@makecol@preparefootinshook {%
-     \global\setbox\footins\vbox{\FN@makefootnoteparagraph}%
-    }
-\fi
+    \FN@temptoken{%
+      \toks@\expandafter{\the\toks@
+        \vskip\skip\footins
+        \color@begingroup
+          \normalcolor\footnoterule
+          \global\setbox\FN@tempboxc\vbox{\makefootnoteparagraph}%
+          \unvbox\FN@tempboxc
+        \color@endgroup
+      }%
+    }%
 %    \end{macrocode}
 %
-%    Placement of footnotes in relation to main galley and floats.
-%
+% If we're not doing paragraph footnotes, we insert the little bit of
+% code that would have been replaced by the stuff above:
 %    \begin{macrocode}
-\ifFN@bottom
-  \ifFN@abovefloats
-%---------------------------------------------------------
-    % footnotes bottom above floats
-    \def\@makecol@appendblocks {%
-       \@outputbox@appendfootnotes {\vfill}%
-       \@outputbox@appendfloats    {}{}%
-    }
   \else
-%---------------------------------------------------------
-    % footnotes bottom below floats
-    \def\@makecol@appendblocks {%
-       \@outputbox@appendfloats    {}{}%
-       \@outputbox@appendfootnotes {\vfill}%
-    }
-    \fi
-\else
-  \ifFN@abovefloats
-%---------------------------------------------------------
-    %default setup, so this is a repeat from above really
-    \def\@makecol@appendblocks {%
-       \@outputbox@appendfootnotes {}%
-       \@outputbox@appendfloats    {}{}%
-       \@outputbox@reinsertbottomskip
-    }
-  \else
-%---------------------------------------------------------
-    % footnotes below floats close to text
-    %
-    % with the current option interface this case can't be reached
-    \def\@makecol@appendblocks {%
-       \@outputbox@appendfloats    {}{}%
-       \@outputbox@appendfootnotes {}%
-       \@outputbox@reinsertbottomskip
-}
-%---------------------------------------------------------
+    \FN@temptoken{%
+      \toks@\expandafter{\the\toks@
+        \vskip\skip\footins
+        \color@begingroup
+          \normalcolor\footnoterule
+          \unvbox\footins
+        \color@endgroup
+      }%
+    }%
   \fi
-\fi
 %    \end{macrocode}
-%    Here is another code example 
+%
+% Now we start building up the revised version of \cs{@makecol}.  The
+% definition starts out in \cs{toks@}; first the \textsf{bottom} version:
 %    \begin{macrocode}
-    % footnotes bottom below floats but floats moved partly down too
-%    \def\@makecol@appendblocks {%
-%       \@outputbox@append          {\vskip 0pt plus.5fill}%
-%       \@outputbox@appendfloats    {}{}%
-%       \@outputbox@appendfootnotes {\vfill}%
-%     }
+  \ifFN@bottom
+    \toks@{\setbox\@outputbox \box\@cclv
+      \xdef\@freelist{\@freelist\@midlist}%
+      \global\let\@midlist\@empty
+      \@combinefloats
+      \ifvoid\footins
+      \else
+        \setbox\@outputbox \vbox\bgroup
+          \boxmaxdepth\@maxdepth
+          \unvbox\@outputbox
+          \vfill\relax
+    }
+    \the\FN@temptoken
+    \toks@\expandafter{\the\toks@\egroup\fi}
+%    \end{macrocode}
+%
+% Not putting stuff at the bottom: footnotes are placed using the
+% kernel's algorithm.
+%    \begin{macrocode}
+  \else
+    \toks@{\ifvoid\footins
+        \setbox\@outputbox\box\@cclv
+      \else
+        \setbox\@outputbox \vbox\bgroup
+        \boxmaxdepth\@maxdepth
+        \unvbox\@cclv
+    }
+    \the\FN@temptoken
+%    \end{macrocode}
+%
+% Finally, close the \cs{setbox} and the \cs{ifvoid} and tag the parts
+% of the definition  of \cs{@makecol} up to the end of the definition
+% of the \textsf{bottom} version on to \cs{toks@}.
+%    \begin{macrocode}
+    \toks@\expandafter{\the\toks@
+      \egroup
+      \fi
+      \xdef\@freelist{\@freelist\@midlist}%
+      \global\let\@midlist\@empty
+      \@combinefloats
+    }%
+  \fi
+%    \end{macrocode}
+%
+% Finally, create the new definition from the resulting object with
+% the remainder of the original \cs{@makecol} tagged on at the end.
+%    \begin{macrocode}
+  \toks@\expandafter{\the\toks@  
+    \ifvbox\@kludgeins
+      \@makespecialcolbox
+    \else
+      \setbox\@outputbox \vbox to\@colht{%
+        \@texttop \dimen@\dp\@outputbox
+        \unvbox\@outputbox
+        \vskip -\dimen@\@textbottom
+      }%
+    \fi
+    \global\maxdepth\@maxdepth
+  }
+  \edef\@makecol{\the\toks@}
+%    \end{macrocode}
+%
+% All of the above occurred conditionally on the `or' of
+% \cs{ifFN@para} and \cs{ifFN@bottom}, so we now close the
+% conditional.
+%    \begin{macrocode}
+\fi
 %    \end{macrocode}
 %
 %
 % \subsection{The requirements of \cs{@footnotetext}}
-%
-% Instead of (re)defining \cs{@footnotetext} we define
-% \cs{FN@footnotetext} and at the end we check what we do with it,
-% depending on whether or not \texttt{hyperref} was loaded.
 %
 % \begin{macro}{\ifFN@baselinestretch}
 % \begin{macro}{\FN@singlespace}
@@ -1216,7 +1119,7 @@
 % footnotes:
 %    \begin{macrocode}
 \ifFN@para
-  \long\def\FN@footnotetext#1{%
+  \renewcommand\@footnotetext[1]{%
     \insert\footins{%
 %    \end{macrocode}
 % insert compatibility code with |setspace.sty| if necessary
@@ -1236,10 +1139,10 @@
 %    \end{macrocode}
 %
 % We set the paragraph in an \cs{hbox} and apply the fudge factor
-% here (these days done with e\TeX{} methods):
+% here:
 %
 %    \begin{macrocode}
-        \setbox\FN@tempboxa\hbox{%
+        \setbox\FN@tempboxa=\hbox{%
 %    \end{macrocode}
 %
 % This needs a parameter; the rule should be moved to the beginning of
@@ -1258,9 +1161,13 @@
             \hskip\footglue
           }% end of \@makefntext parameter
         }% end of \hbox
-        \dp\FN@tempboxa\z@
-        \ht\FN@tempboxa\dimexpr\wd\FN@tempboxa *%
-                        \footnotebaselineskip / \columnwidth\relax
+        \dp\FN@tempboxa=0pt
+        \ifFN@etex
+          \ht\FN@tempboxa=\dimexpr\wd\FN@tempboxa *
+                          \footnotebaselineskip / \columnwidth\relax
+        \else
+          \ht\FN@tempboxa=\fudgefactor\wd\FN@tempboxa
+        \fi
         \box\FN@tempboxa
       \color@endgroup
     }%
@@ -1275,7 +1182,7 @@
 %    \begin{macrocode}
 \else
   \ifFN@sidefn
-    \long\def\FN@footnotetext#1{%
+    \renewcommand\@footnotetext[1]{%
       \marginpar{%
 %    \end{macrocode}
 % insert compatibility code with |setspace.sty| if necessary
@@ -1296,7 +1203,7 @@
       \FN@mf@prepare
     }%
   \else
-    \long\def\FN@footnotetext#1{%
+    \renewcommand\@footnotetext[1]{%
       \insert\footins{%
 %    \end{macrocode}
 % insert compatibility code with \textsf{setspace} if necessary
@@ -1326,9 +1233,6 @@
   \fi
 \fi
 %    \end{macrocode}
-%
-%
-%
 %
 %
 % \subsection{Support code for paragraph footnotes}
@@ -1398,17 +1302,29 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\fudgefactor}
+% Now we derive a fudge factor from the baselineskip we've just
+% established (we use \cs{dimexpr} if we're in etex, so there's no need
+% for the fudge factor in that case).
+%    \begin{macrocode}
+  \ifFN@etex
+  \else
+    \@tempdima=\footnotebaselineskip \multiply\@tempdima by 1024
+    \divide \@tempdima by \columnwidth \multiply\@tempdima by 64
+    \xdef\fudgefactor{\strip@pt\@tempdima }%
+  \fi
+%    \end{macrocode}
+% \end{macro}
 %
- 
-% \begin{macro}{\FN@makefootnoteparagraph}
+% \begin{macro}{\makefootnoteparagraph}
 % For use in the output routine
 %    \begin{macrocode}
-  \long\def\FN@makefootnoteparagraph{\unvbox\footins \FN@makehboxofhboxes
-    \setbox\FN@tempboxa=\hbox{\unhbox\FN@tempboxa \FN@removehboxes}%
+  \long\def\makefootnoteparagraph{\unvbox\footins \makehboxofhboxes
+    \setbox\FN@tempboxa=\hbox{\unhbox\FN@tempboxa \removehboxes}
 %    \end{macrocode}
 % Now we are ready to set the paragraph:
 %    \begin{macrocode}
-    \FN@setfootnoteparawidth
+    \hsize\columnwidth
     \@parboxrestore
     \baselineskip=\footnotebaselineskip
     \noindent
@@ -1418,20 +1334,20 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\FN@makehboxofhboxes}
-% \begin{macro}{\FN@removehboxes}
-% Support code for \cs{FN@makefootnoteparagraph}
+% \begin{macro}{\makehboxofhboxes}
+% \begin{macro}{\removehboxes}
+% Support code for \cs{makefootnoteparagraph}
 %    \begin{macrocode}
-  \def\FN@makehboxofhboxes{\setbox\FN@tempboxa=\hbox{}%
+  \def\makehboxofhboxes{\setbox\FN@tempboxa=\hbox{}%
     \loop
       \setbox\FN@tempboxb=\lastbox
       \ifhbox\FN@tempboxb
       \setbox\FN@tempboxa=\hbox{\box\FN@tempboxb\unhbox\FN@tempboxa}%
     \repeat
   }
-  \def\FN@removehboxes{\setbox\FN@tempboxa=\lastbox
+  \def\removehboxes{\setbox\FN@tempboxa=\lastbox
     \ifhbox
-      \FN@tempboxa{\FN@removehboxes}%
+      \FN@tempboxa{\removehboxes}%
       \unhbox\FN@tempboxa
     \fi
   }
@@ -1441,42 +1357,363 @@
 % \end{macro}
 %
 %
+% \subsection{The other footnote commands}\label{sec:perpage-code}
 %
-%
-%
-%  \begin{macro}{\FN@setfootnoteparawidth}
-%    What we have to use as the width for the footnote paragraph
-%   depends on whether or not we typeset in several columns. If single
-%   column or normal two-column is used then the right value is
-%   \cs{columnwidth}. However, inside a \texttt{multicols} environment
-%   we need to use \cs{textwidth} as the footnotes there will span
-%   across all columns.
-%
-%   To detect if we are inside such an environment we look at
-%   \cs{doublecolnumber} which is only positive if inside such an
-%   environment.
+% \begin{macro}{\ifFN@pp@footnotehint}
+% A conditional needed by the perpage code: must be defined outside
+% the \textsl{perpage} conditional
 %    \begin{macrocode}
-\@ifpackageloaded{multicol}
-  {\def\FN@setfootnoteparawidth
-    {\hsize\ifnum\doublecol@number>\@ne
-                  \textwidth
-            \else \columnwidth \fi}}
-  {\def\FN@setfootnoteparawidth{\hsize\columnwidth}}
+\newif\ifFN@pp@footnotehint
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\c@pp@next@reset}
+% Counter used to store information about the next reset of the
+% footnote number, in perpage mode.
+%    \begin{macrocode}
+\newcounter{pp@next@reset}%
+%    \end{macrocode}
+% \end{macro}
 %
+% \begin{macro}{\ifFN@pp@towrite}
+% A conditional that mediates the interaction between the
+% \texttt{perpage} option and the \texttt{multiple} option.
+%    \begin{macrocode}
+\newif\ifFN@pp@towrite
+\FN@pp@towritefalse
+%    \end{macrocode}
+% \end{macro}
 %
+% \begin{macro}{\ifFN@pp@lastseq}
+% We prevent endless processions of diagnostics `footnote sequence
+% lost' by using this conditional (again, needs to be defined outside
+% the \textsl{perpage} conditional:
+%    \begin{macrocode}
+%<*PPdebug>
+\newif\ifFN@pp@lastseq
+\global\FN@pp@lastseqfalse
+%</PPdebug>
+%    \end{macrocode}
+% \end{macro}
 %
-%
-% \subsection{The other footnote commands}\label{sec:perpage-code}
-%
-%
-%   We delegate the perpage option to a different package \ldots
+% Now, do we need to patch \cs{footnote} for per-page footnotes?
 %    \begin{macrocode}
 \ifFN@perpage
-  \RequirePackage{perpage}
-  \MakePerPage{footnote}
+  \CheckCommand*\footnote{\@ifnextchar [%]
+    \@xfootnote
+    {%
+      \stepcounter\@mpfn \protected@xdef\@thefnmark{\thempfn}%
+      \@footnotemark \@footnotetext
+    }%
+  }
+  \renewcommand*\footnote{\@ifnextchar [%]
+    \@xfootnote
+    {%
+      \stepcounter\@mpfn \protected@xdef\@thefnmark{\thempfn}%
+      \FN@pp@footnote\@footnotemark
+%    \end{macrocode}
+%
+% In case that we're \emph{not} running \texttt{multiple} option,
+% \cs{@footnotemark} \emph{won't} have written details to the |.aux|
+% file, so do it now:
+%    \begin{macrocode}
+      \ifFN@pp@towrite
+        \FN@pp@writetemp
+        \FN@pp@towritefalse
+      \fi
+      \@footnotetext
+    }%
+  }
+%    \end{macrocode}
+%
+% And the analagous change for \cs{footnotemark}
+%    \begin{macrocode}
+  \CheckCommand*\footnotemark{%
+    \@ifnextchar [%]
+    \@xfootnotemark
+    {%
+      \stepcounter{footnote}%
+      \protected@xdef\@thefnmark{\thefootnote}%
+      \@footnotemark
+    }%
+  }
+  \renewcommand*\footnotemark{%
+    \@ifnextchar [%]
+    \@xfootnotemark
+    {%
+      \stepcounter{footnote}%
+      \protected@xdef\@thefnmark{\thefootnote}%
+      \FN@pp@footnote\@footnotemark
+%    \end{macrocode}
+%
+% again, tidy up if we're not doing \texttt{multiple} option
+%    \begin{macrocode}
+      \ifFN@pp@towrite
+        \FN@pp@writetemp
+        \FN@pp@towritefalse
+      \fi
+    }%
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\FN@pp@initialstab}
+% Now the supporting commands\dots
+%
+% if we encounter no information in the |.aux| file, we make a first
+% stab resetting footnote on the page number counter
+%    \begin{macrocode}
+  \gdef\FN@pp@initial@stab{\@addtoreset{footnote}{page}}
+  \AtBeginDocument{\FN@pp@initial@stab}
+%    \end{macrocode}
+% \end{macro}
+%
+% We use a counter to keep pace with the footnotes: this counter is
+% used in the data that's written to the |.aux| file, and matched to
+% create the correct footnote numbers on the second and subsequent
+% passes.
+%    \begin{macrocode}
+  \newcounter{@fnserial}
+%    \end{macrocode}
+%
+% \begin{macro}{\FN@pp@cpage}
+% The package requires a ``knowledge'' of the current page number.
+% It's kept in \cs{FN@pp@cpage}
+%    \begin{macrocode}
+  \def\FN@pp@cpage{0}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\footnotehint}
+% However, the progress of page numbers isn't predictable, so we have
+% a flag saying `reset footnote number'.  The flag is for indirect use
+% by people who diddle with the page number, via the \cs{footnotehint}
+% command, as well as various places where we \emph{know} there could
+% be a discontinuity.
+%    \begin{macrocode}
+  \FN@pp@footnotehinttrue
+  \newcommand{\footnotehint}{%
+    \setcounter{footnote}{0}%
+    \protected@writeaux\relax{\protect\FN@pp@footnotehinttrue}%
+    \@tempcnta\c@@fnserial
+    \advance\@tempcnta\@ne
+    \global\c@pp@next@reset\@tempcnta
+  }
+  \AtBeginDocument{\protected@writeaux\relax{%
+      \protect\providecommand{\protect\FN@pp@footnotehinttrue}{}%
+    }%
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FN@pp@lastfoot}
+% Dummy value for the number of the last footnote we came across.
+%    \begin{macrocode}
+\def\FN@pp@lastfoot{-1}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FN@pp@footnote@aux}
+% The command \cs{FN@pp@footnote@aux} is written to the |.aux| file
+% for every footnote counter allocated (other than in minipages):\\
+% |#1| is the footnote serial number\\
+% |#2| is the page the footnote was actually written on
+%    \begin{macrocode}
+  \newcommand{\FN@pp@footnote@aux}[2]{%
+    \ifnum\FN@pp@lastfoot<#1
+      \ifFN@pp@footnotehint
+        \FN@pp@resetfn{#1}{#2}%
+        \FN@pp@footnotehintfalse
+      \else
+        \gdef\@tempa{#2}%
+        \ifx\@tempa\FN@pp@cpage
+        \else
+          \FN@pp@resetfn{#1}{#2}%
+        \fi
+      \fi
+      \def\FN@pp@lastfoot{#1}%
+%<*PPdebug>
+    \else
+      \ifFN@pp@debug
+        \typeout{not considering footnote serial number #1
+          (last valid was \FN@pp@lastfoot)}%
+      \fi
+%</PPdebug>
+    \fi
+%    \end{macrocode}
+%
+% Since we've now had at least one item of footnote information from
+% a |.aux| file, we can't allow footnote resetting per page.
+%    \begin{macrocode}
+    \global\let\FN@pp@initial@stab\relax
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FN@pp@resetfn}
+% Set the flag to reset the footnote number; this constructs a chain
+% through the footnote serial numbers at the start of each page
+%    \begin{macrocode}
+  \newcommand{\FN@pp@resetfn}[2]{%
+    \gdef\FN@pp@cpage{#2}%
+    \expandafter\gdef
+      \csname FN@pp@next-\FN@pp@prev@foot\endcsname{#1}%
+    \def\FN@pp@prev@foot{#1}%
+    \expandafter\xdef
+      \csname FN@pp@next-\FN@pp@prev@foot\endcsname{\the\@MM}%
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FN@pp@prev@foot}
+% The base of the footnote serial number chain (this element is never
+% looked at: footnote serial 1 must always have number 1)
+%    \begin{macrocode}
+  \newcommand{\FN@pp@prev@foot}{root}
+%    \end{macrocode}
+% \end{macro}
+%
+% again, avoid confusion; also establish \cs{FN@pp@footnote@aux} in the
+% |.aux| file
+%    \begin{macrocode}
+  \AtBeginDocument{\protected@writeaux\relax{%
+      \protect\providecommand{\protect\FN@pp@footnote@aux}[2]{}}%
+    \c@pp@next@reset\@ne
+  }
+%    \end{macrocode}
+%
+% At end document, establish a new \cs{FN@pp@footnote@aux} which 
+% checks whether numbers have changed during the scan of the |.aux|
+% files for changed labels and the like
+%    \begin{macrocode}
+  \AtEndDocument{\let\FN@pp@footnote@aux\FN@pp@footnote@endaux
+    \def\FN@pp@lastfoot{-1}%
+    \FN@pp@footnotehintfalse
+    \renewcommand{\FN@pp@prev@foot}{root}
+  }
+%    \end{macrocode}
+%
+% \begin{macro}{\FN@pp@footnote@endaux}
+% The footnote analysis command for end document
+%    \begin{macrocode}
+  \newcommand{\FN@pp@footnote@endaux}[2]{%
+    \ifnum\FN@pp@lastfoot<#1
+      \ifFN@pp@footnotehint
+        \FN@pp@resetfn@end{#1}{#2}%
+        \FN@pp@footnotehintfalse
+      \else
+        \gdef\@tempa{#2}%
+        \ifx\@tempa\FN@pp@cpage
+        \else
+          \FN@pp@resetfn@end{#1}{#2}%
+        \fi
+      \fi
+      \def\FN@pp@lastfoot{#1}%
+%<*PPdebug>
+    \else
+      \ifFN@pp@debug
+        \typeout{not considering footnote serial number #1
+          (last valid was \FN@pp@lastfoot)}%
+      \fi
+%</PPdebug>
+    \fi
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FN@pp@resetfn@end}
+% Deal with the \verb'.aux' file footnote details, at end document
+%    \begin{macrocode}
+  \newcommand{\FN@pp@resetfn@end}[2]{%
+    \def\@tempa{#1}%
+    \expandafter\ifx\csname FN@pp@next-\FN@pp@prev@foot\endcsname\@tempa%
+    \else
+      \@tempswatrue
+%<*PPdebug>
+      \ifFN@pp@debug
+        \expandafter\ifx\csname FN@pp@next-\FN@pp@prev@foot\endcsname\relax
+          \ifFN@pp@lastseq\else
+            \typeout{footnote sequence lost between pages
+              \FN@pp@cpage\space and #2}%
+            \global\FN@pp@lastseqtrue
+          \fi
+        \else
+          \typeout{footnotes changed between pages \FN@pp@cpage\space and #2:
+            next was \csname FN@pp@next-\FN@pp@prev@foot\endcsname, now #1}%
+          \global\FN@pp@lastseqfalse
+        \fi
+      \fi
+%</PPdebug>
+    \fi
+    \gdef\FN@pp@prev@foot{#1}%
+    \gdef\FN@pp@cpage{#2}%
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\clearpage}
+% \begin{macro}{\FN@pp@@clearpage}
+% Now, how do we cope with \cs{include}d documents?  We can't insert
+% anything (the |includex| package offers \cs{AtBeginIncludedDocument}
+% but there's no corresponding command for files included by the
+% kernel \cs{include}.  So we insert a footnote hint at every
+% \cs{clearpage}
+%    \begin{macrocode}
+\let\FN@pp@@clearpage\clearpage
+\renewcommand{\clearpage}{\footnotehint\FN@pp@@clearpage}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\FN@pp@footnote}
+% The business end of the option: a macro to decide on footnote
+% numbers, called from \cs{footnote} and \cs{footnotemark} (see
+% above).
+%    \begin{macrocode}
+\def\FN@pp@footnote{%
+  \if@minipage\else
+    \global\advance\c@@fnserial\@ne
+    \if@filesw
+%    \end{macrocode}
+%
+% In case we're also doing \texttt{multiple} option, we now save up
+% the command to write to the |.aux| file, and mark we've done so
+%    \begin{macrocode}
+      \xdef\FN@pp@writetemp{%
+        \noexpand\protected@writeaux\relax{%
+          \string\FN@pp@footnote@aux
+            {\the\c@@fnserial}{\noexpand\thepage}%
+        }%
+      }%
+      \FN@pp@towritetrue
+    \fi
+    \ifnum\c@pp@next@reset>\c@@fnserial
+    \else
+      \global\expandafter\csname c@\@mpfn\endcsname\@ne
+      \protected@xdef\@thefnmark{\thempfn}%
+%    \end{macrocode}
+%
+% Now look at the next element in the chain:
+%    \begin{macrocode}
+      \expandafter\let\expandafter\@tempa
+        \csname FN@pp@next-\number\c@pp@next@reset\endcsname
+%    \end{macrocode}
+%
+% If the chain is broken here, set the next reset point to something
+% (one hopes) infeasibly large\dots{} a weak point?
+%    \begin{macrocode}
+      \ifx\@tempa\relax
+        \global\c@pp@next@reset\@MM
+      \else
+        \global\c@pp@next@reset\@tempa
+      \fi
+    \fi
+  \fi
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% End of code loaded when \texttt{perpage} option is given
+%    \begin{macrocode}
 \fi
 %    \end{macrocode}
 %
@@ -1571,7 +1808,7 @@
 %
 % \begin{macro}{\multiplefootnotemarker}
 % \begin{macro}{\multfootsep}
-% \begin{macro}{\FN@footnotemark}
+% \begin{macro}{\@footnotemark}
 % \begin{macro}{\FN@mf@prepare}
 % \begin{macro}{\FN@mf@check}
 % This (revised) code derives from a suggestion by Alexander Rozhenko
@@ -1589,17 +1826,14 @@
 \ifFN@multiplefootnote
   \providecommand*{\multiplefootnotemarker}{3sp}
   \providecommand*{\multfootsep}{,}
-%
-% FMi: not checking, more harm than gain  
-%  \CheckCommand*\@footnotemark{%
-%    \leavevmode
-%    \ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi
-%    \@makefnmark
-%    \ifhmode\spacefactor\@x@sf\fi
-%    \relax
-%  }
-%
-  \newcommand*\FN@footnotemark{%
+  \CheckCommand*\@footnotemark{%
+    \leavevmode
+    \ifhmode\edef\@x@sf{\the\spacefactor}\nobreak\fi
+    \@makefnmark
+    \ifhmode\spacefactor\@x@sf\fi
+    \relax
+  }
+  \renewcommand*\@footnotemark{%
     \leavevmode
     \ifhmode
       \edef\@x@sf{\the\spacefactor}%
@@ -1607,6 +1841,16 @@
       \nobreak
     \fi
     \@makefnmark
+%    \end{macrocode}
+%
+% if we're also doing option \texttt{perpage}, write its stuff to the
+% |.aux| file for it, so the \emph{wotsit} node doesn't interfere with
+% our \cs{kern} detection.
+%    \begin{macrocode}
+    \ifFN@pp@towrite
+      \FN@pp@writetemp
+      \FN@pp@towritefalse
+    \fi
     \FN@mf@prepare
     \ifhmode\spacefactor\@x@sf\fi
     \relax
@@ -1629,10 +1873,6 @@
 %    \begin{macrocode}
 \else
   \let\FN@mf@prepare\relax
-%    \end{macrocode}
-%    Need to provide a definition for \cs{FN@footnotemark} in that case.
-%    \begin{macrocode}
-  \let\FN@footnotemark\@footnotemark
 \fi
 %    \end{macrocode}
 % \end{macro}
@@ -1881,6 +2121,29 @@
 % \end{macro}
 % \end{macro}
 %
+% \begin{macro}{\TextOrMath}
+% This is a stripped down (e-\TeX{} only) version of what appears in
+% fixltx2e.  If the command's already defined, we assume it's that
+% version.
+%    \begin{macrocode}
+\@ifundefined{TextOrMath}{%
+  \@ifundefined{eTeXversion}{%
+    \PackageError{footmisc}{Can't define commands for footnote symbol}%
+                           {Use e-LaTeX, or load package fixltx2e before 
+                             footmisc}%
+  }{%
+    \protected\expandafter\def\csname TextOrMath\space\endcsname{%
+      \ifmmode \expandafter\@secondoftwo
+      \else    \expandafter\@firstoftwo   \fi
+    }
+    \edef\TextOrMath#1#2{%
+      \expandafter\noexpand\csname TextOrMath\space\endcsname
+	{#1}{#2}%
+    }%
+  }%
+}{}
+%    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{\FN@orange}
 % \begin{macro}{\@fnsymbol@orange}
@@ -2070,26 +2333,6 @@
 %    \end{macrocode}
 % \end{macro}
 %
-%
-%   If \textsf{hyperref} was loaded first, it has saved
-%   \cs{@footnotetext} and \cs{@footnotemark} away and then redefined
-%   them. The saved versions are now wrong, so we reassign them.
-%    \begin{macrocode}
-\@ifpackageloaded{hyperref}{%
-  \let\H@@footnotetext\FN@footnotetext
-  \let\H@@footnotemark\FN@footnotemark
-}{%
-%    \end{macrocode}
-%   If \textsf{hyperref} wasn't loaded we copy our new definitions to
-%   \cs{@footnotetext} and \cs{@footnotemark} for actual use. If
-%   \textsf{hyperref} is loaded later it will do its magic and save
-%   our definitions.
-%    \begin{macrocode}
-  \let \@footnotetext \FN@footnotetext
-  \let\@footnotemark  \FN@footnotemark
-}
-%    \end{macrocode}
-%
 %    \begin{macrocode}
 \endinput
 %</package>
@@ -2097,3 +2340,19 @@
 %
 % \Finale
 %
+%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
