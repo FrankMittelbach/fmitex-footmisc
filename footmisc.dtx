@@ -907,261 +907,194 @@
 %
 % \subsection{The output routine}
 %
-% Now; do we need to mess about with the output routine?  If either
-% |para| or |bottom| has been invoked, we do.
-%    \begin{macrocode}
-\let  \if@tempswa  \ifFN@bottom
-\ifFN@para    \@tempswatrue \fi
-\if@tempswa
-%    \end{macrocode}
-% \dots{} so we've patching to do.
 %
-% First, we ensure that \cs{@makecol} is as expected from the time at
-% which these macros were written: since we're going to patch it, we
-% had better be sure that we're patching the right thing.  (There was
-% a minuscule change to the definition 1999, but this doesn't as far
-% as I can tell make any difference to the semantics of the definition
-% we base our patch on.)
+% New version of \cs{@makecol} for the kernel
 %    \begin{macrocode}
-  \@ifl@t@r\fmtversion{2005/12/01}{%
-    \CheckCommand*\@makecol{\ifvoid \footins
+%---------------------------------------------------------
+\def \@makecol {%
+%
+   \@makecol@prehook
+%
         \setbox\@outputbox \box\@cclv
-      \else
-        \setbox\@outputbox \vbox{%
-          \boxmaxdepth \@maxdepth                   
-          \unvbox\@cclv
-          \vskip \skip\footins
-          \color@begingroup
-            \normalcolor\footnoterule
-            \unvbox\footins
-          \color@endgroup
-        }%
-      \fi
-      \let \@elt \relax
-      \xdef\@freelist{\@freelist\@midlist}%
-      \global\let\@midlist\@empty
-      \@combinefloats
+%
+   \@makecol@appendblocks 
+%
       \ifvbox\@kludgeins
         \@makespecialcolbox
       \else
-        \setbox\@outputbox \vbox to\@colht{%
-          \@texttop \dimen@\dp\@outputbox
-          \unvbox\@outputbox
-          \vskip -\dimen@\@textbottom
-        }%
-      \fi
-      \global\maxdepth\@maxdepth
-    }
-  }{%
-  \@ifl@t@r\fmtversion{2003/12/01}{%
-    \CheckCommand*\@makecol{\ifvoid \footins
-        \setbox\@outputbox \box\@cclv
-      \else
-        \setbox\@outputbox \vbox{%
-          \boxmaxdepth\@maxdepth
-          \@tempdima\dp\@cclv
-          \unvbox\@cclv
-          \vskip \skip\footins
-          \color@begingroup
-            \normalcolor
-            \footnoterule
-            \unvbox\footins
-          \color@endgroup
-        }%
-      \fi
-      \let \@elt \relax
-      \xdef\@freelist{\@freelist\@midlist}%
-      \global\let\@midlist\@empty
-      \@combinefloats
-      \ifvbox\@kludgeins
-        \@makespecialcolbox
-      \else
-        \setbox\@outputbox \vbox to\@colht{%
+     \setbox\@outputbox \vbox to\@colht {%
           \@texttop
-          \dimen@\dp\@outputbox
-          \unvbox\@outputbox
+       \dimen@ \dp\@outputbox
+       \unvbox \@outputbox
           \vskip -\dimen@
           \@textbottom
         }%
       \fi
-      \global\maxdepth\@maxdepth
-    }%
-  }{%
-    \@ifl@t@r\fmtversion{1999/12/01}{%
-      \CheckCommand*\@makecol{\ifvoid \footins
-          \setbox\@outputbox \box\@cclv
-        \else                           
-          \setbox\@outputbox \vbox{%
-            \boxmaxdepth\@maxdepth
-            \@tempdima\dp\@cclv
-            \unvbox\@cclv
-            \vskip \skip\footins
-            \color@begingroup
-              \normalcolor\footnoterule
-              \unvbox\footins
-            \color@endgroup
-          }%
-        \fi
-        \xdef\@freelist{\@freelist\@midlist}%
-        \global\let\@midlist\@empty
-        \@combinefloats
-        \ifvbox\@kludgeins
-          \@makespecialcolbox
-        \else
-          \setbox\@outputbox \vbox to\@colht{%
-            \@texttop \dimen@\dp\@outputbox
-            \unvbox\@outputbox
-            \vskip -\dimen@\@textbottom
-          }%
-        \fi
-        \global\maxdepth\@maxdepth
-      }%
-    }%
-  }{%
-      \CheckCommand*\@makecol{\ifvoid \footins
-        \setbox\@outputbox \box\@cclv
-      \else
-        \setbox\@outputbox \vbox{%
-          \boxmaxdepth\@maxdepth
-          \unvbox\@cclv
-          \vskip \skip\footins
-          \color@begingroup
-            \normalcolor\footnoterule
-            \unvbox\footins
-          \color@endgroup
-        }%
-      \fi
-      \xdef\@freelist{\@freelist\@midlist}%
-      \global\let\@midlist\@empty
-      \@combinefloats
-      \ifvbox\@kludgeins
-        \@makespecialcolbox
-      \else
-        \setbox\@outputbox \vbox to\@colht{%
-          \@texttop \dimen@\dp\@outputbox
-          \unvbox\@outputbox
-          \vskip -\dimen@\@textbottom
-        }%
-      \fi
-      \global\maxdepth\@maxdepth
-    }%
-  }%
+   \global \maxdepth \@maxdepth
+%
+   \@makecol@posthook
 }
 %    \end{macrocode}
-%
-% If we're doing paragraph footnotes, the output routine needs
-% different code to place the actual text.  We prepare this code here,
-% since it's potentially used in two different places.
-%
-% We prepare the code in a token register to be used at the
-% appropriate place in the patching of \cs{@makecol}; thus it becomes
-% a token register containing code to place stuff in a token register
+%    \cs{@makecol} support macros:
 %    \begin{macrocode}
-  \ifFN@para
-%    \end{macrocode}
-%
-% We make a box out of the paragraph of footnotes, and then stuff the
-% contents of the box into that which is going to be \cs{ship}ped
-% |out|.
-%    \begin{macrocode}
-    \FN@temptoken{%
-      \toks@\expandafter{\the\toks@
-        \vskip\skip\footins
-        \color@begingroup
-          \normalcolor\footnoterule
-          \global\setbox\FN@tempboxc\vbox{\FN@makefootnoteparagraph}%
-          \unvbox\FN@tempboxc
-        \color@endgroup
-      }%
+%---------------------------------------------------------
+\def\@makecol@appendstuff #1{%
+     \setbox\@outputbox \vbox {%
+       \boxmaxdepth \@maxdepth
+       \unvbox \@outputbox                  % changed
+       #1%
     }%
-%    \end{macrocode}
+}
+%---------------------------------------------------------
+\def\@makecol@appendfootnotes #1{%
+   \ifvoid\footins \else
+%   
+     \@makecol@handlesplitfootnotes
+%     
+     \@makecol@preparefootinshook
+%     
+     \@makecol@appendstuff{%
 %
-% If we're not doing paragraph footnotes, we insert the little bit of
-% code that would have been replaced by the stuff above:
-%    \begin{macrocode}
-  \else
-    \FN@temptoken{%
-      \toks@\expandafter{\the\toks@
-        \vskip\skip\footins
-        \color@begingroup
-          \normalcolor\footnoterule
-          \unvbox\footins
-        \color@endgroup
-      }%
-    }%
+       #1%                                  %% \vfill or \@makecol@moveskip
+%
+            \vskip \skip\footins
+            \color@begingroup
+         \normalcolor
+         \footnoterule
+         \unvbox \footins                   %% preparefootinshook should update \footins
+            \color@endgroup
+        \@makecol@bottomskip
+          }%
+        \fi
+}
+
+\let\@makecol@bottomskip\relax
+%---------------------------------------------------------
+% with incomplete preparation for tagging commented out
+
+\def\@makecol@handlesplitfootnotes {%
+%  \ifx\splitfootnote@continuation\@empty \else
+%    \setbox\footins\vbox{\splitfootnote@continuation\unvbox\footins}%
+%    \global\let\splitfootnote@continuation\@empty
+%  \fi
+  \ifnum\insertpenalties>\z@
+    \@makecol@splitfootnotemessagehook
+%    \setbox\footins\vbox{\unvbox\footins --- END at split}%
+%    \gdef\splitfootnote@continuation    {--- START after split}%
   \fi
+}
+%\def\splitfootnote@continuation{}
+%---------------------------------------------------------
 %    \end{macrocode}
+%    This is really a bug fix for the kernel, but perhaps one has to
+%    make it optional because it is in there since day one). If
+%    \cs{raggedbottom} is in force, footnotes get attached to the main
+%    galley at a distance of \cs{footskip} on all pages except on
+%    those that are ended by \cs{newpage} or \cs{clearpage} where the
+%    resulting \cs{vfill} pushes the footnotes to the very bottom.
 %
-% Now we start building up the revised version of \cs{@makecol}.  The
-% definition starts out in \cs{toks@}; first the \textsf{bottom} version:
+%    This is kind of a weird difference to ending a page with
+%    \cs{pagebreak} in that case---in that case the page is also run
+%    short, but the footnote is not pushed to the bottom.
 %    \begin{macrocode}
-  \ifFN@bottom
-    \toks@{\setbox\@outputbox \box\@cclv
-      \xdef\@freelist{\@freelist\@midlist}%
-      \global\let\@midlist\@empty
-      \@combinefloats
-      \ifvoid\footins
-      \else
-        \setbox\@outputbox \vbox\bgroup
-          \boxmaxdepth\@maxdepth
-          \unvbox\@outputbox
-          \vfill\relax
-    }
-    \the\FN@temptoken
-    \toks@\expandafter{\the\toks@\egroup\fi}
-%    \end{macrocode}
-%
-% Not putting stuff at the bottom: footnotes are placed using the
-% kernel's algorithm.
-%    \begin{macrocode}
-  \else
-    \toks@{\ifvoid\footins
-        \setbox\@outputbox\box\@cclv
-      \else
-        \setbox\@outputbox \vbox\bgroup
-        \boxmaxdepth\@maxdepth
-        \unvbox\@cclv
-    }
-    \the\FN@temptoken
-%    \end{macrocode}
-%
-% Finally, close the \cs{setbox} and the \cs{ifvoid} and tag the parts
-% of the definition  of \cs{@makecol} up to the end of the definition
-% of the \textsf{bottom} version on to \cs{toks@}.
-%    \begin{macrocode}
-    \toks@\expandafter{\the\toks@
-      \egroup
-      \fi
-      \xdef\@freelist{\@freelist\@midlist}%
-      \global\let\@midlist\@empty
-      \@combinefloats
-    }%
-  \fi
-%    \end{macrocode}
-%
-% Finally, create the new definition from the resulting object with
-% the remainder of the original \cs{@makecol} tagged on at the end.
-%    \begin{macrocode}
-  \toks@\expandafter{\the\toks@  
-    \ifvbox\@kludgeins
-      \@makespecialcolbox
+\ifFN@moveskip
+  \def\@makecol@moveskip{%
+    \ifx\@textbottom\relax
+      \let\@makecol@bottomskip\relax
     \else
-      \setbox\@outputbox \vbox to\@colht{%
-        \@texttop \dimen@\dp\@outputbox
-        \unvbox\@outputbox
-        \vskip -\dimen@\@textbottom
-      }%
-    \fi
-    \global\maxdepth\@maxdepth
+      \@tempskipa\lastskip
+      \ifnum \gluestretchorder\@tempskipa>\z@
+        \vskip-\@tempskipa
+        \edef\@makecol@bottomskip{\vskip\the\@tempskipa}%
+        \fi
+      \fi
   }
-  \edef\@makecol{\the\toks@}
+\else  
+  \let\@makecol@moveskip \relax
+\fi
+%---------------------------------------------------------
+\def \@makecol@appendfloats{%
+   \let\@elt\relax
+      \xdef\@freelist{\@freelist\@midlist}%
+   \global \let \@midlist \@empty
+      \@combinefloats
+}
+%---------------------------------------------------------
+%
 %    \end{macrocode}
 %
-% All of the above occurred conditionally on the `or' of
-% \cs{ifFN@para} and \cs{ifFN@bottom}, so we now close the
-% conditional.
+%
+%    \cs{@makecol} hooks:
 %    \begin{macrocode}
+%=========================================================
+\let \@makecol@prehook  \@empty  % to support manyfoot and similar
+%---------------------------------------------------------
+\let \@makecol@posthook \@empty  % to support packages that append to \@makecol
+%---------------------------------------------------------
+\let \@makecol@splitfootnotemessagehook \@empty     % could issue warning if
+                                                    % split footnotes are encountered
+%---------------------------------------------------------
+\let \@makecol@preparefootinshook \@empty  % to support manipulation
+                                           % of footins box (result needs to be
+                                           % moved back in there) 
+%=========================================================
+%    \end{macrocode}
+%
+%
+%    Footnote box layout for para footnotes;
+%    this would also be the hook to support dblfootnotes (from the
+%    \texttt{dblfnote} package)
+%    \begin{macrocode}
+\ifFN@para
+  \def\@makecol@preparefootinshook {%
+     \global\setbox\footins\vbox{\FN@makefootnoteparagraph}%
+    }
 \fi
+%    \end{macrocode}
+%
+%    Placement of footnotes in relation to main galley and floats.
+%
+%    \begin{macrocode}
+\ifFN@bottom
+  \ifFN@abovefloats
+%---------------------------------------------------------
+    % footnotes bottom above floats
+    \def\@makecol@appendblocks {%
+       \@makecol@appendfootnotes {\vfill}%
+       \@makecol@appendfloats}
+  \else
+%---------------------------------------------------------
+    % footnotes bottom below floats
+    \def\@makecol@appendblocks {%
+       \@makecol@appendfloats
+       \@makecol@appendfootnotes {\vfill}}
+    \fi
+\else
+  \ifFN@abovefloats
+%---------------------------------------------------------
+    %default setup, so this is a repeat from above really
+    \def\@makecol@appendblocks {%
+       \@makecol@appendfootnotes {\@makecol@moveskip}%
+       \@makecol@appendfloats}
+  \else
+%---------------------------------------------------------
+    % footnotes below floats close to text
+    %
+    % with the current option interface this case can't be reached
+    \def\@makecol@appendblocks {%
+       \@makecol@appendfloats
+       \@makecol@appendfootnotes {\@makecol@moveskip}}
+%---------------------------------------------------------
+  \fi
+\fi
+%    \end{macrocode}
+%    Here is another code example 
+%    \begin{macrocode}
+    % footnotes bottom below floats but floats moved partly down too
+%    \def\@makecol@appendblocks {%
+%       \@makecol@appendstuff          {\vskip 0pt plus.5fill}%
+%       \@makecol@appendfloats
+%       \@makecol@appendfootnotes {\vfill}}
 %    \end{macrocode}
 %
 %
