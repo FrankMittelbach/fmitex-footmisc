@@ -19,3 +19,11 @@ l. ...\showFNsymbols{chicago}
 #1->\ifcase #1\or \TextOrMath {\textasteriskcentered }{*}\or \TextOrMath {\textasteriskcentered \textasteriskcentered }{**}\or \TextOrMath {\textdagger }{\dagger }\or \TextOrMath {\textdaggerdbl }{\ddagger }\or \TextOrMath {\textsection }{\mathsection }\or \TextOrMath {\textparagraph }{\mathparagraph }\or \TextOrMath {\textbardbl }{\|}\else \@ctrerr \fi .
 <recently read> \FN@fnsymbol@wiley 
 l. ...\showFNsymbols{wiley}
+> \FN@fnsymbol@stars=macro:
+#1->\nfss@text {\ifcase #1\or *\or **\or ***\or ****\else \@arabic #1\FN@orange #1\fi }.
+<recently read> \FN@fnsymbol@stars 
+l. ...\showFNsymbols{stars}
+> \FN@fnsymbol@stars*=macro:
+#1->\nfss@text {\ifcase #1\or *\or **\or ***\or ****\else \@ctrerr \fi }.
+<recently read> \FN@fnsymbol@stars* 
+l. ...\showFNsymbols{stars*}

@@ -7,6 +7,9 @@
 
 \usepackage[]{footmisc}
 
+\DefineFNsymbols{stars}{* {**} {***} {****}}
+\DefineFNsymbols*{stars*}{* {**} {***} {****}}
+
 \def\showFNsymbols#1{\expandafter\show\csname FN@fnsymbol@#1\endcsname}
 
 \showoutput
@@ -20,6 +23,8 @@
 \showFNsymbols{bringhurst}
 \showFNsymbols{chicago}
 \showFNsymbols{wiley}
+\showFNsymbols{stars}
+\showFNsymbols{stars*}
 
 \newpage
 

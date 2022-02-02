@@ -11,6 +11,7 @@ l3build save \
 	footmisc-floats-002 \
 	footmisc-floats-003 \
 	footmisc-floats-004 \
-	footmisc-floats-005
+	footmisc-floats-005 \
+	footmisc-symbols-001
 
 

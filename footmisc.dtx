@@ -485,7 +485,8 @@
 % subsequent \cs{footnotemark} or \cs{mpfootnotemark}.  This is a
 % tedious way of going about things, and doesn't allow representation
 % of all possible forms of footnote mark; \cs{footref} is a form of
-% reference command that sets the reference as if it were a footnote.
+% reference command that sets the reference as if it were
+% a footnote.\footnote{This command is already provided by the \LaTeX{} format.}
 % The label should be set \emph{within} the argument of the footnote
 % command that is being labelled:
 % \begin{verbatim}
@@ -512,7 +513,7 @@
 %   \textsf{setspace}, and we detect that emulation and deal with it
 %   in the same way as \textsf{setspace}.
 %
-% \iffalse FMi: this should now work
+% \iffalse FMi: this should now work!
 % \item[\normalfont\textsf{hyperref}] The \textsf{hyperref} package
 %   has ambitions to make hyperlinks from footnote marks to the
 %   corresponding footnote body; naturally this causes grief to
@@ -541,9 +542,9 @@
 %<*package>
 %    \end{macrocode}
 %
-% Now declare what environment we need:
+% Now declare what environment we need: version 6 needs a fairly recent \LaTeX.
 %    \begin{macrocode}
-\NeedsTeXFormat{LaTeX2e}[1994/12/01]
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
 %    \end{macrocode}
 %
 % We need a token register in case we have to patch \cs{@makecol}:
@@ -1707,10 +1708,10 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\setfnsymbol}
-% \begin{macro}{\FN@fnsymbol@lamport}
 % \section{Symbol option variants}
 %
+% \begin{macro}{\setfnsymbol}
+% \begin{macro}{\FN@fnsymbol@lamport}
 % Lamport's choice of symbols for \cs{fnsymbol} wasn't entirely
 % ``traditional'', so we (now) provide alternatives.  The
 % \cs{setfnsymbol} command offers a small number of choices, and the
@@ -1782,26 +1783,21 @@
 % Note that doubled-up (and worse\,---\,see below) symbols need braces
 % around them.
 %    \begin{macrocode}
-\newcommand{\DefineFNsymbols}{%
-        \@ifstar{\@tempswbtrue\@DefineFNsymbols}%
-                {\@tempswbfalse\@DefineFNsymbols}%
-}
-\newcommand{\@DefineFNsymbols}[1]{%
-  \@ifnextchar[% ]
-    {\@DefineFNsymbols@{#1}}{\@DefineFNsymbols@{#1}[text]}%
-}
-\def\@DefineFNsymbols@#1[#2]#3{%
-  \expandafter\ifx\csname FN@fnsymbol@#1\endcsname\relax
-    \PackageInfo{footmisc}{Declaring symbol style #1}%
+
+
+
+\DeclareDocumentCommand\DefineFNsymbols {smO{text}m}{%
+  \expandafter\ifx\csname FN@fnsymbol@#2\endcsname\relax
+    \PackageInfo{footmisc}{Declaring symbol style #2}%
   \else
-    \PackageWarning{footmisc}{Redeclaring symbol style #1}%
+    \PackageWarning{footmisc}{Redeclaring symbol style #2}%
   \fi
   \toks@{}%
   \def\@tempb{\end}%
-  \FN@build@symboldef#3\end
+  \FN@build@symboldef#4\end
   \def\@tempc{math}%
-  \def\@tempd{#2}%
-  \expandafter\xdef\csname FN@fnsymbol@#1\endcsname##1{%
+  \def\@tempd{#3}%
+  \expandafter\xdef\csname FN@fnsymbol@#2\endcsname##1{%
     \ifx\@tempc\@tempd
       \noexpand\ensuremath
     \else
@@ -1811,15 +1807,13 @@
       \noexpand\ifcase##1%
       \the\toks@
       \noexpand\else
-      \if@tempswb
-        \noexpand\@ctrerr
-      \else
-        \noexpand\@arabic##1\noexpand\FN@orange##1%
-      \fi
+      \IfBooleanTF#1{\noexpand\@ctrerr}%
+        {\noexpand\@arabic##1\noexpand\FN@orange##1}%
       \noexpand\fi
     }%
   }%
 }
+
 \def\FN@build@symboldef#1{%
   \def\@tempa{#1}%
   \ifx\@tempa\@tempb
@@ -1841,30 +1835,25 @@
 % Now do the same job for the ``modern'' way of having both text and
 % maths variants of everything.
 %    \begin{macrocode}
-\newcommand{\DefineFNsymbolsTM}{%
-        \@ifstar{\@tempswbtrue\@DefineFNsymbolsTM}%
-                {\@tempswbfalse\@DefineFNsymbolsTM}}%
-\newcommand{\@DefineFNsymbolsTM}[2]{%
-  \expandafter\ifx\csname FN@fnsymbol@#1\endcsname\relax
-    \PackageInfo{footmisc}{Declaring symbol style #1}%
+
+\DeclareDocumentCommand\DefineFNsymbolsTM {smm}{%
+  \expandafter\ifx\csname FN@fnsymbol@#2\endcsname\relax
+    \PackageInfo{footmisc}{Declaring symbol style #2}%
   \else
-    \PackageWarning{footmisc}{Redeclaring symbol style #1}%
+    \PackageWarning{footmisc}{Redeclaring symbol style #2}%
   \fi
   \toks@{}%
   \def\@tempb{\end}%
-  \FN@build@symboldefTM#2\end\@null
-  \expandafter\xdef\csname FN@fnsymbol@#1\endcsname##1{%
+  \FN@build@symboldefTM#3\end\@null
+  \expandafter\xdef\csname FN@fnsymbol@#2\endcsname##1{%
     \noexpand\ifcase##1%
       \the\toks@
     \noexpand\else
-      \if@tempswb
-        \noexpand\@ctrerr
-      \else
-        \noexpand\@arabic##1\noexpand\FN@orange##1%
-      \fi
-    \noexpand\fi
+      \IfBooleanTF#1{\noexpand\@ctrerr}%
+        {\noexpand\@arabic##1\noexpand\FN@orange##1}%
+      \noexpand\fi
   }%
-}%
+}
 %    \end{macrocode}
 % Note that this version has two variants of every definition, so
 % needs two stopper codes above.
@@ -1911,18 +1900,6 @@
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\textbardbl}
-% This is defined in recent \LaTeX{} releases, but not in (for
-% example) that distributed with the last release of te\TeX{}.  Since
-% it's needed in some symbol set definitions (including Lamport's) we
-% define it here.
-%    \begin{macrocode}
-\@ifundefined{textbardbl}{%
-  \DeclareTextSymbol{\textbardbl}{OMS}{107}%
-  \DeclareTextSymbolDefault{\textbardbl}{TS1}}{}%
-%    \end{macrocode}
-% (This definition comes from the \LaTeX{} sources.)
-% \end{macro}
 %
 % \begin{macro}{\FN@fnsymbol@bringhurst}
 % \begin{macro}{\FN@fnsymbol@chicago}
@@ -1934,7 +1911,7 @@
 % and an extended version of Lamport's original
 %    \begin{macrocode}
 \DefineFNsymbolsTM*{bringhurst}{%
-  \textasteriskcentered *
+  \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
   \textsection   \mathsection
@@ -1942,15 +1919,15 @@
   \textparagraph \mathparagraph
 }%
 \DefineFNsymbolsTM*{chicago}{%
-  \textasteriskcentered *
+  \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
   \textsection   \mathsection
   \textbardbl    \|%
   \#\#%
 }%
-\DefineFNsymbolsTM*{wiley}{
-  \textasteriskcentered *
+\DefineFNsymbolsTM*{wiley}{%
+  \textasteriskcentered *%
   {\textasteriskcentered\textasteriskcentered}{**}%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
@@ -1958,8 +1935,8 @@
   \textparagraph \mathparagraph
   \textbardbl    \|%
 }%
-\DefineFNsymbolsTM{lamport-robust}{
-  \textasteriskcentered *
+\DefineFNsymbolsTM{lamport-robust}{%
+  \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
   \textsection   \mathsection
@@ -1970,7 +1947,7 @@
   {\textdaggerdbl\textdaggerdbl}{\ddagger\ddagger}%
 }
 \DefineFNsymbolsTM*{lamport*}{%
-  \textasteriskcentered *
+  \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
   \textsection   \mathsection
@@ -1991,7 +1968,7 @@
 }
 \setfnsymbol{lamport*}
 \DefineFNsymbolsTM{lamport*-robust}{%
-  \textasteriskcentered *
+  \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
   \textsection   \mathsection
@@ -2019,29 +1996,6 @@
 %
 % \section{Other miscellaneous commands}
 %
-% \subsection{Footnote references}
-%
-% \begin{macro}{\footref}
-% Syntax: \cs{footref}\marg{label-name}
-%
-% One often wishes to refer to a footnote; in some circumstances,
-% \cs{footnotemark} just isn't good enough (for example, inside a
-% |minipage|, when \cs{footnotemark} creates a reference to footnotes
-% outside the minipage).
-%
-% \cs{footref} addresses this problem by making a label reference that
-% actually looks like a \cs{footnotemark}.  (The command is available
-% in the |memoir| class, and we therefore \cs{providecommand} it
-% rather than defining it ``outright''.)
-%    \begin{macrocode}
-\providecommand*{\footref}[1]{%
-  \begingroup
-    \unrestored@protected@xdef\@thefnmark{\ref{#1}}%
-  \endgroup
-  \@footnotemark
-}
-%    \end{macrocode}
-% \end{macro}
 %
 % \subsection{Minipage \cs{footnotemark}s}
 %
