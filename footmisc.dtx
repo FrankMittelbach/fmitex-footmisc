@@ -57,7 +57,7 @@
 \documentclass{ltxdoc}
 %    \end{macrocode}
 %
-% we limit the things that we will index
+% We limit the things that we will index
 %    \begin{macrocode}
 \DoNotIndex{\#,\@MM,\@cclv,\@gobble,\@ifnextchar,\@ifundefined}
 \DoNotIndex{\|,\advance,\begingroup,\bgroup,\box,\csname}
@@ -76,7 +76,7 @@
 \DoNotIndex{\wd,\xdef,\@}
 \GetFileInfo{footmisc.dtx}
 \EnableCrossrefs
-% to get documented source of the package, comment out the next line,
+% To get documented source of the package, comment out the next line,
 % and uncomment the following one; otherwise, create yourself
 % (somewhere on your LaTeX input path) a file ltxdoc.cfg that contains
 % simply          \AtBeginDocument{\AlsoImplementation}
@@ -102,6 +102,12 @@
 %     Laboratory, Cambridge, UK} \and
 %   Frank Mittelbach\thanks{Responsible maintainer since 2018}}
 % \maketitle
+%
+%
+% \newcommand\fmi[1]{\begin{quote} TODO: \itshape #1\end{quote}}
+% \newcommand\NEW[1]{\marginpar{\mbox{}\hfill\fbox{New: #1}}}
+% \providecommand\pkg[1]{\texttt{#1}}
+%
 %
 % \section*{Copyright statement}
 %
@@ -132,18 +138,18 @@
 % Frank took over maintainence in 2018 but due to other committments never
 % got around finishing the changes he started to make in 2018.
 %
-% In 2022 a few new options (\texttt{abovefloats} and
-% \texttt{belowfloats}) got introduced and the package now works
+% In 2022 a few new options (\texttt{abovefloats},
+% \texttt{belowfloats}, \texttt{bottomfloats}, and \texttt{bottomfootnotes})
+% got introduced and the package now works
 % with \textsf{hyperref} regardless of loading order.
 %
-% FMi: TODO support dblfootnotes?
 %
 %
 %
 % \section{User interface~--- package options}
 %
 % The \textsf{footmisc} package provides several different
-% customisations of the way foonotes are represented in \LaTeXe{}
+% customisations of the way footnotes are represented in \LaTeXe{}
 % documents (the sources of the code in this package are various, but
 % all of it has been massaged by the author; where the code comes from
 % elsewhere, there are attributions given below, somewhere or other).
@@ -265,6 +271,9 @@
 % \subsection{The \cs{setfnsymbol} and \cs{DefineFNsymbols} commands}
 % \label{footnote-symbols}
 %
+% \fmi{At some point in the past this interface got extended, but the
+%     documentation lags behind so this needs updating.}
+%
 % These commands permit the definition and use of alternative
 % (ordered) sets of symbols for numbering footnotes.  \LaTeX{} of
 % course comes with such a set ready-defined, but the choice of
@@ -304,45 +313,85 @@
 % This last set, known as \texttt{lamport*} is selected as the default
 % symbol set by the package.
 %
-% \subsection{Option \texttt{bottom}}
 %
-% This option forces footnotes to the bottom of the page; this is only
-% noticeably useful in case that \cs{raggedbottom} is in effect, when
+% \subsection{Options altering the footnotes/floats relationship}
+%
+% In \LaTeX{} the default order on a page is ``page text'' followed by
+% ``footnotes'' (if any) followed by ``bottom floats'' (if any). The
+% spacing between the three components depends of whether pages are
+% always stretched to the same height (\cs{flushbottom} as used by the
+% book class) or if they
+% can run short  (\cs{raggedbottom} as used by the article or report
+% class).
+% If \cs{raggedbottom} is in force, then 
 % \LaTeX{} would normally set the footnotes a mere
-% \cs{skip}\cs{footins} distant from the bottom of the text.
+% \cs{skip}\cs{footins} distant from the bottom of the text and bottom
+% floats follow separated by \cs{textfloatsep}. Both spaces might get
+% stretched if \cs{flushbottom} is in force.
 %
-% There's a further infelicity in \LaTeX{}'s placing of footnotes of
-% the bottom of pages: if a bottom float appears on a page, \LaTeX{}
-% places the footnote \emph{above} it.  The \texttt{bottom} option
-% places the footnote at the foot of the page.
+% If\NEW{2022-02}
+% you want to diverge from this default placement, then  there are
+% a number of alterations that can be made:
+% \begin{itemize}
+% \item the order of footnotes and floats can be swapped; and
+% \item both footnotes and floats can be forced to the bottom (i.e.,
+% \cs{raggedbottom} then only applies to pages with neither), or
+% \item only one of them is forced to the bottom, the other stays
+% close to the text.
+% \end{itemize}
+% These can be achieved by applying one or more of the options
+% discussed below.
+%^^A \texttt{abovefloats}, \texttt{belowfloats}, \texttt{bottom},
+%^^A \texttt{bottomfloats}, or \texttt{bottomfootnotes}.
 %
 %
-% \subsection{Option \texttt{moveskip} (new in 2022)}
 %
-% When the \texttt{bottom} option is not in force (i.e., in the
-% default case) there is a strange discrepancy: on most pages the
+% \subsubsection{Options \texttt{abovefloats} and \texttt{belowfloats}}
+%
+% These\NEW{2022-02}
+% two options describe the footnote placement with respect to
+% floats on the page. \LaTeX's default is \texttt{abovefloats}, but it
+% can stil be useful to specify it because it fixes the bug discussed
+% in section~\ref{sec:spacebug}.
+%
+%
+% \subsubsection{Option \texttt{bottom}}
+%
+% This option forces footnotes \emph{and} floats to the bottom and
+% also implies \texttt{belowfloats}. If you want both at the bottom
+% but footnotes first, then add \texttt{abovefloats} in addition.
+%
+% \subsubsection{Options \texttt{bottomfloats} and
+% \texttt{bottomfootnotes}}
+%
+% If\NEW{2022-02}
+% you want force only floats or only footnotes to the bottom then
+% use one of these options. As they naturally define the order, i.e.,
+% in case of \texttt{bottomfloats} footnotes are obviously earlier, the
+% options \texttt{abovefloats} and \texttt{belowfloats} are
+% meaningless and are ignored if given.
+%
+%
+% \subsubsection{Fixing a strange behavior of \LaTeX}
+% \label{sec:spacebug}
+%
+% In\NEW{2022-02}
+% the default case (if \pkg{footmisc} is not loaded) \LaTeX{} shows
+% a somewhat strange discrepancy: on most pages the
 % footnotes are attached a distance of \cs{skip}\cs{footins} from the
-% main text, even if that is run short. However, whenever the is some
-% infinite stretch on the page, e.g., from using \cs{newpage} or
+% main text, even if that page is run short (i.e., with
+% \cs{raggedbottom} in force). However, whenever the is some
+% infinite stretch at the end of the page, e.g., from using \cs{newpage} or
 % \cs{clearpage} the footnotes are pushed to the bottom (in particular
 % on the last page of a document or chapter).
 %
-% This can be corrected by giving the option \texttt{moveskip} in
-% which infinite glue just before the footnotes is removed and placed
-% after them.
-%
-% This has the following effects: if \cs{raggedbottom} is in force,
-% then the footnotes will always stay the same distance from main
-% text and the bottom of the text may vary from page to page.
-% However, if \cs{flushbottom} is force, e.g. in the \texttt{book}
-% class, then the footnotes will only move if there is infinite glue
-% directly at the bottom of the page. Only then, the footnotes will
-% shift upwards.
-%
-%
-% \subsection{Options \texttt{abovefloats} and \texttt{belowfloats} (new in 2022)}
-%
-%  FMi: write documentation
+% This is automatically corrected if \pkg{footmisc} is loaded with any
+% of the options that deal with footnote placement, i.e.,
+% \texttt{abovefloats}, \texttt{belowfloats}, \texttt{bottom},
+% \texttt{bottomfloats}, or \texttt{bottomfootnotes}. In particular,
+% if you want to have the standard \LaTeX{} placement (but with this
+% strange behavior fixed, apply \texttt{abovefloats} (which is the
+% normal order but with the bug fixed).
 %
 %
 % \subsection{Option \texttt{marginal}}
@@ -619,8 +668,10 @@
 % number.  We use a robust version of the ``extended ordinary'' symbol set,
 % described later (in section~\ref{footnote-symbols}).
 %    \begin{macrocode}
+\newif\ifFN@robust \FN@robustfalse
 \DeclareOption{symbol*}{%
   \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+  \FN@robusttrue
   \AtEndOfPackage{\setfnsymbol{lamport*-robust}}%
 }
 %    \end{macrocode}
@@ -724,37 +775,92 @@
 % \end{macro}
 %
 %
-% \subsection{The \texttt{bottom} option}
+% \subsection{Fixing the \LaTeX{} misbehavior with respect to spacing}
 %
-% \begin{macro}{\ifFN@bottom}
-% All this needs to do is to set a flag to say that it should happen. Historically
-% this also
-% moves the footnotes below the bottom floats.
+%
+%  \begin{macro}{\ifFN@fixskip}
+%    We maintain a boolean to decide if we want to fix that, by
+% default we don't but if any placement option is given we apply the fix.
 %    \begin{macrocode}
-\newif\ifFN@bottom        \FN@bottomfalse
+\newif\ifFN@fixskip      \FN@fixskipfalse
+%    \end{macrocode}
+%  \end{macro}
+%
+% \subsection{The footnote/float placement options}
+%
+% We have up to three blocks on a page (four if you count
+% top-floats). If there is any excess space that needs to be added the
+% question is where that goes:
+% \begin{enumerate}
+% \item above footnotes and floats;
+% \item between footnotes and floats;
+% \item after footnotes and floats;
+% \item nowhere in particular (everything is equally spaced out).
+% \end{enumerate}
+% Technically, the last two cases can be combined in one:
+% \cs{raggedbottom} adds some ``fill'' space at the very bottom (which
+% covers case 3) and \cs{flushbottom} puts nothing in this place, so
+% covers case 4 if we do not add any \cs{vfill} elsewhere.
+%
+%
+% \begin{macro}{\FN@ORspacehandling}
+%    We record in which case we want to be in
+%   \cs{FN@ORspacehandling}. The default is case 3.
+%    \begin{macrocode}
+\let\FN@ORspacehandling\thr@@
+
+%    \end{macrocode}
+% \end{macro}
+
+% \subsubsection{The \texttt{bottom} option}
+%
+%  \begin{macro}{\ds@bottom}
+%  The \texttt{bottom} option implements case 1 and puts the footnotes
+%  by default below the floats.
+%    \begin{macrocode}
 \DeclareOption{bottom}{%
-  \FN@bottomtrue\FN@abovefloatsfalse
+  \let\FN@ORspacehandling\@ne
+  \FN@abovefloatsfalse
+%    \end{macrocode}
+%    We also state that we want to fix \LaTeX{} space issue (as we do
+%    in all other options.
+%    \begin{macrocode}
+  \FN@fixskiptrue
 }
 %    \end{macrocode}
-% \end{macro}
+%  \end{macro}
 %
-% \subsection{The \texttt{abovefloats}, \texttt{belowfloats},  and \texttt{moveskip} options}
+% \subsection{The \texttt{abovefloats}, \texttt{belowfloats} options}
 %
 % \begin{macro}{\ifFN@abovefloats}
-% All this needs to do is to set a flag to say that it should happen
+%    All this needs to do is to set a flag to say that it should happen.
 %    \begin{macrocode}
 \newif\ifFN@abovefloats  \FN@abovefloatstrue
-\DeclareOption{abovefloats}{\FN@abovefloatstrue}
-\DeclareOption{belowfloats}{\FN@abovefloatsfalse}
 %    \end{macrocode}
 % \end{macro}
 %
 %
-% \begin{macro}{\ifFN@moveskip}
+% \begin{macro}{ds@abovefloats,ds@bbelowfloats}
+%    These options change the order and that's it.
 %    \begin{macrocode}
-\newif\ifFN@moveskip      \FN@moveskipfalse
-\DeclareOption{moveskip}{%
-  \FN@moveskiptrue
+\DeclareOption{abovefloats}{\FN@abovefloatstrue  \FN@fixskiptrue}
+\DeclareOption{belowfloats}{\FN@abovefloatsfalse \FN@fixskiptrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{The \texttt{bottomfloats}, \texttt{bottomfootnotes} options}
+%
+% \begin{macro}{ds@bottomfloats,ds@bottomfootnotes}
+%    These options are for case 2. In addition they have to say what
+%    comes first.
+%    \begin{macrocode}
+\DeclareOption{bottomfloats}{%
+  \let\FN@ORspacehandling\tw@
+  \FN@abovefloatstrue \FN@fixskiptrue
+}
+\DeclareOption{bottomfootnotes}{%
+  \let\FN@ORspacehandling\tw@
+  \FN@abovefloatsfalse \FN@fixskiptrue
 }
 %    \end{macrocode}
 % \end{macro}
@@ -912,32 +1018,35 @@
 %
 % \subsection{The output routine}
 %
+%    We interface with \cs{@makecol} from the kernel. Eventually this
+%    should move directly into the kernel.
 %
-% New version of \cs{@makecol} for the kernel
-%    \begin{macrocode}
-%---------------------------------------------------------
-\NewMirroredHookPair{cmd/@makecol/before}{cmd/@makecol/after}
-%---------------------------------------------------------
-%    \end{macrocode}
-
-
-
+%    In order for other packages to prepend or append code to
+%    \cs{@makecol}, they can use the generic command hooks
+%    \texttt{cmd/@makecol/before} and \texttt{cmd/@makecol/after}, so
+%    there is nothing we need to do here.
+%
+%
+%
 %  \begin{macro}{\@makecol}
-%    
+%    \cs{@makecol} is shortened a lot, basically all the hardwired
+%    code in the middle has moved into a configuration point.
 %    \begin{macrocode}
 \def \@makecol {%
-   \UseHook{cmd/@makecol/before}%
-%    \end{macrocode}
-%
-%    \begin{macrocode}
    \setbox\@outputbox \box\@cclv
-   \@outputbox@removebottomskip
 %    \end{macrocode}
-%
+%    The only real addition is the next command which either does
+%    nothing or removes an infinite glue from the bottom of the
+%    \cs{@outputbox}.
+%    \begin{macrocode}
+   \@outputbox@fixbottomskip
+%    \end{macrocode}
+%    Here we have the configurable part.
 %    \begin{macrocode}
    \@makecol@appendblocks 
 %    \end{macrocode}
-%
+%    The we deal with any \cs{enlargethispage} or run the normal code
+%    to build a column.
 %    \begin{macrocode}
    \ifvbox\@kludgeins
       \@makespecialcolbox
@@ -945,15 +1054,22 @@
       \@makenormalcolbox
    \fi
    \global \maxdepth \@maxdepth
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-   \UseHook{cmd/@makecol/before}%
 }
 %    \end{macrocode}
 %  \end{macro}
+%
+%
+%  \begin{macro}{\@outputbox@depth}
+%    We need to know the depth of \cs{@outputbox} once in a
+%    while. Rather than using a temp dimen (as it was done in the
+%    past), we give it a proper register.
+%    \begin{macrocode}
+\newdimen\@outputbox@depth
+%    \end{macrocode}
+%  \end{macro}
 
-
+%  \begin{macro}{\@makenormalcolbox}
+%    Taken out of \cs{@makecol} for readibility.
 %    \begin{macrocode}
 \def \@makenormalcolbox {%
    \setbox\@outputbox \vbox to\@colht {%
@@ -964,6 +1080,13 @@
        \@textbottom
       }%
 }
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%  \begin{macro}{\@makespecialcolbox}
+%    Make the colbox when \cs{enlargethispage} was used.
+%    \begin{macrocode}
 \def \@makespecialcolbox {%
    \@outputbox@append {\vskip-\@outputbox@depth}%
    \@tempdima \@colht
@@ -985,9 +1108,15 @@
    \fi
    {\setbox \@tempboxa \box \@kludgeins}%
 }
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%
+%
+%    \begin{macrocode}
 
 
-\newdimen\@outputbox@depth
 
 
 %    \cs{@makecol} support macros:
@@ -1004,7 +1133,7 @@
   \fi
 }
 %---------------------------------------------------------
-\def\@outputbox@appendfootnotes #1{%
+\def\@outputbox@appendfootnotes {%
    \ifvoid\footins \else
 %   
      \@makecol@handlesplitfootnotes
@@ -1012,9 +1141,6 @@
      \@makecol@preparefootinshook
 %     
      \@outputbox@append{%
-%
-        #1%                                  %% \vfill or or some other value
-%
        \vskip \skip\footins
        \color@begingroup
          \normalcolor
@@ -1054,8 +1180,8 @@
 %    \cs{pagebreak} in that case---in that case the page is also run
 %    short, but the footnote is not pushed to the bottom.
 %    \begin{macrocode}
-\ifFN@moveskip
-  \def\@outputbox@removebottomskip{%
+\ifFN@fixskip
+  \def\@outputbox@fixbottomskip{%
     \ifx\@textbottom\relax
       \global\let\@outputbox@reinsertbottomskip\relax
     \else
@@ -1069,29 +1195,21 @@
    \fi
   }
 \else  
-  \let\@outputbox@removebottomskip \relax
+  \let\@outputbox@fixbottomskip \relax
 \fi
 %---------------------------------------------------------
 
 % \@combinefloats no longer used
 
 
-\def \@outputbox@appendfloats#1#2{%
+\def \@outputbox@appendfloats{%
    \let\@elt\relax
    \xdef\@freelist{\@freelist\@midlist}%
    \global \let \@midlist \@empty
    \ifx \@toplist\@empty \else
-     \if!\detokenize{#1}!\else
-       \setbox\@outputbox \vbox {%
-         \boxmaxdepth \@maxdepth
-         #1%
-         \unvbox \@outputbox
-       }%
-     \fi
      \@cflt
    \fi
    \ifx \@botlist\@empty \else
-     \@outputbox@append{#2}%
      \@cflb
    \fi
 }
@@ -1126,56 +1244,102 @@
 \fi
 %    \end{macrocode}
 %
+
+
+
+
+
 %    Placement of footnotes in relation to main galley and floats.
+
+
 %
 %    \begin{macrocode}
-\ifFN@bottom
+
+\ifcase \FN@ORspacehandling\relax
+%---------------------------------------------------------
+% 0 = undefined
+%---------------------------------------------------------
+\ERROR
+\or
+%---------------------------------------------------------
+% 1 = space above footnotes and floats
+%---------------------------------------------------------
+
   \ifFN@abovefloats
 %---------------------------------------------------------
-    % footnotes bottom above floats
+    % footnotes above floats both at bottom
     \def\@makecol@appendblocks {%
-       \@outputbox@appendfootnotes {\vfill}%
-       \@outputbox@appendfloats    {}{}%
-    }
+       \@outputbox@append          {\vfill}%
+       \@outputbox@appendfootnotes
+       \@outputbox@appendfloats
+      }
   \else
 %---------------------------------------------------------
     % footnotes bottom below floats
     \def\@makecol@appendblocks {%
-       \@outputbox@appendfloats    {}{}%
-       \@outputbox@appendfootnotes {\vfill}%
+       \@outputbox@append          {\vfill}%
+       \@outputbox@appendfloats
+       \@outputbox@appendfootnotes
     }
-    \fi
-\else
+  \fi
+
+\or
+%---------------------------------------------------------
+% 2 = space between footnotes and floats (or floats and footnotes)
+%---------------------------------------------------------
+
   \ifFN@abovefloats
 %---------------------------------------------------------
-    %default setup, so this is a repeat from above really
+     % footnotes above floats at bottom
+     \def\@makecol@appendblocks {%
+        \@outputbox@appendfootnotes
+        \@outputbox@append          {\vfill}%
+        \@outputbox@appendfloats
+     }
+%---------------------------------------------------------
+  \else
+%---------------------------------------------------------
+     % floats above footnotes at bottom
+     \def\@makecol@appendblocks {%
+        \@outputbox@appendfloats
+        \@outputbox@append          {\vfill}%
+        \@outputbox@appendfootnotes
+     }
+%---------------------------------------------------------
+  \fi
+
+\or
+%---------------------------------------------------------
+% 3 = space below footnotes and floats
+%---------------------------------------------------------
+  
+  \ifFN@abovefloats
+%---------------------------------------------------------
     \def\@makecol@appendblocks {%
-       \@outputbox@appendfootnotes {}%
-       \@outputbox@appendfloats    {}{}%
+       \@outputbox@appendfootnotes
+       \@outputbox@appendfloats
        \@outputbox@reinsertbottomskip
     }
   \else
 %---------------------------------------------------------
     % footnotes below floats close to text
-    %
-    % with the current option interface this case can't be reached
     \def\@makecol@appendblocks {%
-       \@outputbox@appendfloats    {}{}%
-       \@outputbox@appendfootnotes {}%
+       \@outputbox@appendfloats
+       \@outputbox@appendfootnotes
        \@outputbox@reinsertbottomskip
 }
 %---------------------------------------------------------
   \fi
+
+
+\else
+%---------------------------------------------------------
+% 3 > undefined
+%---------------------------------------------------------
+\ERROR
 \fi
-%    \end{macrocode}
-%    Here is another code example :
-%    footnotes bottom below floats but floats moved partly down too
-%    \begin{macrocode}
-%    \def\@makecol@appendblocks {%
-%       \@outputbox@append          {\vskip 0pt plus.5fill}%
-%       \@outputbox@appendfloats    {}{}%
-%       \@outputbox@appendfootnotes {\vfill}%
-%     }
+
+
 %    \end{macrocode}
 %
 %
@@ -1808,7 +1972,7 @@
       \the\toks@
       \noexpand\else
       \IfBooleanTF#1{\noexpand\@ctrerr}%
-        {\noexpand\@arabic##1\noexpand\FN@orange##1}%
+        {\noexpand\FN@orange##1}%
       \noexpand\fi
     }%
   }%
@@ -1850,7 +2014,7 @@
       \the\toks@
     \noexpand\else
       \IfBooleanTF#1{\noexpand\@ctrerr}%
-        {\noexpand\@arabic##1\noexpand\FN@orange##1}%
+        {\noexpand\FN@orange##1}%
       \noexpand\fi
   }%
 }
@@ -1879,10 +2043,13 @@
 % they're allowed to\,--\,e.g., in the \texttt{symbol*} option).
 %    \begin{macrocode}
 \def\FN@orange#1{%
-  \@bsphack
-  \PackageInfo{footmisc}{Footnote number \number#1 out of range}%
-  \protect\@fnsymbol@orange
-  \@esphack
+  \ifFN@robust
+    \@arabic#1%
+    \@bsphack
+    \PackageInfo{footmisc}{Footnote number \number#1 out of range}%
+    \protect\@fnsymbol@orange
+    \@esphack
+  \else \@ctrerr \fi
 }
 \global\let\@diagnose@fnsymbol@orange\relax
 \AtEndDocument{\@diagnose@fnsymbol@orange}
@@ -1910,7 +2077,7 @@
 % footnote symbols, plus a robust version of the original Lamport set,
 % and an extended version of Lamport's original
 %    \begin{macrocode}
-\DefineFNsymbolsTM*{bringhurst}{%
+\DefineFNsymbolsTM{bringhurst}{%
   \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
@@ -1918,7 +2085,7 @@
   \textbardbl    \|%
   \textparagraph \mathparagraph
 }%
-\DefineFNsymbolsTM*{chicago}{%
+\DefineFNsymbolsTM{chicago}{%
   \textasteriskcentered *%
   \textdagger    \dagger
   \textdaggerdbl \ddagger
@@ -1926,7 +2093,7 @@
   \textbardbl    \|%
   \#\#%
 }%
-\DefineFNsymbolsTM*{wiley}{%
+\DefineFNsymbolsTM{wiley}{%
   \textasteriskcentered *%
   {\textasteriskcentered\textasteriskcentered}{**}%
   \textdagger    \dagger

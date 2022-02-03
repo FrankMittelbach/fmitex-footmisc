@@ -39,5 +39,11 @@ more\footnote{F}
 
 \newpage
 
+more
+
+\afloat[b]{D}
+
+\pagebreak
+
 \OMIT
 \end{document}
