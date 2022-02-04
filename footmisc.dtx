@@ -96,7 +96,7 @@
 %
 % \title{\texttt{footmisc} ---\\
 %        a portmanteau package\\
-%        for customising footnotes in \LaTeX\thanks{This file has
+%        for customizing footnotes in \LaTeX\thanks{This file has
 %          version number \fileversion, last revised \filedate}}
 % \author{Robin Fairbairns\thanks{Formerly: University of Cambridge Computer
 %     Laboratory, Cambridge, UK} \and
@@ -139,7 +139,7 @@
 % used by a package written by Mark Wooding.  So the package is now
 % known (as you can see) as ``footmisc''.
 %
-% Frank took over maintainence in 2018 but due to other committments never
+% Frank took over maintenance in 2018 but due to other commitments never
 % got around finishing the changes he started to make in 2018.
 %
 % In 2022 a few new options (\texttt{abovefloats},
@@ -153,7 +153,7 @@
 % \section{User interface~--- package options}
 %
 % The \textsf{footmisc} package provides several different
-% customisations of the way footnotes are represented in \LaTeXe{}
+% customizations of the way footnotes are represented in \LaTeXe{}
 % documents (the sources of the code in this package are various, but
 % all of it has been massaged by the author; where the code comes from
 % elsewhere, there are attributions given below, somewhere or other).
@@ -178,7 +178,7 @@
 % so an additional pass for this purpose shouldn't cause any
 % additional problem.  The option includes code to report that
 % `\emph{Label(s) may have changed}', which will help the poor user to
-% realise that (yet) another run is in order.
+% realize that (yet) another run is in order.
 %
 % \subsection{Option \texttt{para}}
 %
@@ -268,7 +268,7 @@
 % confound automatic generation procedures.  In the same situation,
 % the \texttt{symbol*} option produces information messages and a
 % warning message at end document, and the user may scan the log for
-% those messages \emph{after} processing has stabilised.  The option
+% those messages \emph{after} processing has stabilized.  The option
 % produces numbers (17 and higher, in the case of the default symbol
 % set) in place of symbols, when the footnote number is too large.
 %
@@ -355,7 +355,7 @@
 % These\NEW{2022-02}
 % two options describe the footnote placement with respect to
 % floats on the page. \LaTeX's default is \texttt{abovefloats}, but it
-% can stil be useful to specify it because it fixes the bug discussed
+% can still be useful to specify it because it fixes the bug discussed
 % in section~\ref{sec:spacebug}.
 %
 %
@@ -525,7 +525,7 @@
 % letters.  However, the numbers used by \cs{footnotemark} make
 % reference to the `main'
 % footnote counter, and are set in whatever is the current style for
-% that: this behaviour often surprises, and there's no obvious way in
+% that: this behavior often surprises, and there's no obvious way in
 % standard \LaTeX{} to ``get around'' it.  The command
 % \cs{mpfootnotemark} gets around this problem in a minipage, by
 % generating footnote marks in the same way as those used by
@@ -552,7 +552,7 @@
 %
 % The \textsf{footmisc} package modifies several parts of the \LaTeX{}
 % kernel; what gets modified depends on the options you select.  This
-% behaviour can cause problems with other packages, particularly those
+% behavior can cause problems with other packages, particularly those
 % that also modify the kernel.
 %
 % Known interactions are:
@@ -618,7 +618,7 @@
 % \begin{macro}{\l@advance@macro}
 % \begin{macro}{@@dvance@macro}
 % \begin{macro}{\@advance@macro}
-% We make the following (\cs{@@dvance@macro}) generalisable as follows
+% We make the following (\cs{@@dvance@macro}) generalizable as follows
 % (the global form isn't used in this package \dots\ yet):
 %
 %    \begin{macrocode}
@@ -640,7 +640,7 @@
 %
 % \begin{macro}{\footnotemargin}
 % Finally, we define the length used by the \texttt{marginal} option,
-% and initialise it as if we've not had the option.
+% and initialize it as if we've not had the option.
 %    \begin{macrocode}
 \newdimen\footnotemargin
 \footnotemargin1.8em\relax
@@ -659,7 +659,7 @@
 % This is a declaration that appears in the original \LaTeX{} book.
 % Since it appeared in the old |pagefoots.sty| (presumably since it
 % goes so naturally with the |perpage| option), I've added this
-% trivial piece of customisation to the package.
+% trivial piece of customization to the package.
 %
 %    \begin{macrocode}
 \DeclareOption{symbol}{\renewcommand\thefootnote{\fnsymbol{footnote}}}
@@ -716,7 +716,7 @@
 % \subsection{The \texttt{side} option}
 %
 % \begin{macro}{\ifFN@sidefn}
-% Simply changes the behaviour of \cs{@footnotetext}; incompatible
+% Simply changes the behavior of \cs{@footnotetext}; incompatible
 % with paragraph footnotes.
 %    \begin{macrocode}
 \newif\ifFN@sidefn  \FN@sidefnfalse
@@ -844,7 +844,7 @@
 % \end{macro}
 %
 %
-% \begin{macro}{ds@abovefloats,ds@bbelowfloats}
+% \begin{macro}{ds@abovefloats,ds@belowfloats}
 %    These options change the order and that's it.
 %    \begin{macrocode}
 \DeclareOption{abovefloats}{\FN@abovefloatstrue  \FN@fixskiptrue}
@@ -1081,7 +1081,7 @@
 %  \end{macro}
 
 %  \begin{macro}{\@makenormalcolbox}
-%    Taken out of \cs{@makecol} for readibility.
+%    Taken out of \cs{@makecol} for readability.
 %    \begin{macrocode}
 \def \@makenormalcolbox {%
    \setbox\@outputbox \vbox to\@colht {%
@@ -1233,7 +1233,7 @@
 %    \end{macrocode}
 %    First two configuration points: what to do if we are in a split
 %    footnote situation and a second one that does some manipulation
-%    of the \cs{footins} box before it gets appened.
+%    of the \cs{footins} box before it gets appended.
 % \fmi{this code will get revised as part of CP handling  in the future}
 %    \begin{macrocode}
      \@makecol@handlesplitfootnotes
@@ -1261,7 +1261,7 @@
 %  \begin{macro}{\@outputbox@attachtopfloats}
 %  \begin{macro}{\@outputbox@attachbottomfloats}
 %    Attaching top and bottom floats can usually be done in one go,
-%    but for special layouts we might want more control sowe provide
+%    but for special layouts we might want more control so we provide
 %    also separate commands.
 %    \begin{macrocode}
 \let \@outputbox@attachfloats \@combinefloats
@@ -1445,7 +1445,7 @@
 % 3 > undefined
 %---------------------------------------------------------
 %    \end{macrocode}
-%    The \cs{ERROR} here and above should nevery execute, like ``This
+%    The \cs{ERROR} here and above should never execute, like ``This
 %    can't happen'' in the \TeX{} program code. If they execute then code
 %    is badly broken.
 %    \begin{macrocode}
@@ -1856,7 +1856,7 @@
 % This (revised) code derives from a suggestion by Alexander Rozhenko
 % (the author of the \textit{manyfoot} package): the intention is that
 % \textit{footmisc} and \textit{manyfoot} should be able to
-% `interwork', in the sense that each would recognise the other's
+% `interwork', in the sense that each would recognize the other's
 % footnote marks and behave appropriately.  The trick is that
 % both \cs{footnote}  and \cs{footnotemark} insert a marker (a
 % cancelling pair of kerns of \cs{multiplefootnotemarker} (of opposite
@@ -2060,9 +2060,6 @@
 % Note that doubled-up (and worse\,---\,see below) symbols need braces
 % around them.
 %    \begin{macrocode}
-
-
-
 \DeclareDocumentCommand\DefineFNsymbols {smO{text}m}{%
   \expandafter\ifx\csname FN@fnsymbol@#2\endcsname\relax
     \PackageInfo{footmisc}{Declaring symbol style #2}%
@@ -2112,7 +2109,6 @@
 % Now do the same job for the ``modern'' way of having both text and
 % maths variants of everything.
 %    \begin{macrocode}
-
 \DeclareDocumentCommand\DefineFNsymbolsTM {smm}{%
   \expandafter\ifx\csname FN@fnsymbol@#2\endcsname\relax
     \PackageInfo{footmisc}{Declaring symbol style #2}%

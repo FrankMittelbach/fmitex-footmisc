@@ -6,6 +6,7 @@ l3build save \
 	footmisc-004 \
 	footmisc-005 \
 	footmisc-006 \
+	footmisc-007 \
 	footmisc-floats-000 \
 	footmisc-floats-001 \
 	footmisc-floats-002 \
