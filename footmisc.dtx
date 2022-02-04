@@ -124,6 +124,10 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 %
+%
+% \tableofcontents
+%
+%
 % \section*{History}
 %
 % This package originated as support of a personal project, which I (Robin)
@@ -1016,7 +1020,7 @@
 % hacked to achieve our effects, and we do all of this now, according
 % to flags set in option processing.
 %
-% \subsection{The output routine}
+% \subsection{The output routine part}
 %
 %    We interface with \cs{@makecol} from the kernel. Eventually this
 %    should move directly into the kernel.
@@ -1039,9 +1043,17 @@
 %    nothing or removes an infinite glue from the bottom of the
 %    \cs{@outputbox}.
 %    \begin{macrocode}
-   \@outputbox@fixbottomskip
+   \@outputbox@removebskip
+%    \end{macrocode}
+%    Any ``here'' floats in the \cs{@outputbox} are now handled so we
+%    recycle their registers and put them back to the \cs{@freelist}.
+%    \begin{macrocode}
+   \let\@elt\relax
+   \xdef\@freelist{\@freelist\@midlist}%
+   \global \let \@midlist \@empty
 %    \end{macrocode}
 %    Here we have the configurable part.
+% \fmi{Interface to configuration points will change in the future}
 %    \begin{macrocode}
    \@makecol@appendblocks 
 %    \end{macrocode}
@@ -1112,49 +1124,170 @@
 %  \end{macro}
 %
 %
+%  \begin{macro}{\@outputbox@removebskip}
+%    
+%    This is really a bug fix for the kernel, but perhaps one has to
+%    make it optional because it is in there since day one). If
+%    \cs{raggedbottom} is in force, footnotes get attached to the main
+%    galley at a distance of \cs{footskip} on all pages except on
+%    those that are ended by \cs{newpage} or \cs{clearpage} where the
+%    \cs{vfil} from \cs{newpage} pushes the footnotes to the very bottom.
+%
+%    This is kind of a weird difference to a page  ending with
+%    \cs{pagebreak}---in that case the page is also run
+%    short, but the footnotes are not pushed to the bottom.
+%
+%    This is fixed by \cs{@outputbox@removebskip} but only if the
+%    switch \texttt{FN@fixskip} is set to true (which is done whenever
+%    \pkg{footmisc} is called with with an option specifying the
+%    footnote placement, i.e., not  in the default case).
+%    \begin{macrocode}
+\ifFN@fixskip
+  \def\@outputbox@removebskip{%
+%    \end{macrocode}
+%    We first test if we are in a \cs{raggedbottom} layout. If not we
+%    do nothing, but we don't disable the code because
+%    \cs{raggedbottom} may get used only for some parts of the
+%    document.
+%    \begin{macrocode}
+    \ifx\@textbottom\relax \else
+%    \end{macrocode}
+%    We then append some negative glue at the end of \cs{@outputbox}
+%    provided it has a glue stretch order of 1 or more (i.e., contains
+%    a \texttt{fil} or \texttt{fill} part).
+%    \begin{macrocode}
+      \@outputbox@append{%
+        \@tempskipa\lastskip
+        \ifnum \gluestretchorder\@tempskipa>\z@
+          \vskip-\@tempskipa
+%    \end{macrocode}
+%  \begin{macro}{\@outputbox@reinsertbskip}
+%    We also record the value so that it can be reinserted
+%    elsewhere. As we have to do this globally, we also need to
+%    explicitly reset it if we don't find any such glue.
+%    \begin{macrocode}
+          \xdef\@outputbox@reinsertbskip{\vskip\the\@tempskipa}%
+        \else
+          \global\let\@outputbox@reinsertbskip\relax
+        \fi
+      }%
+   \fi
+  }
+%    \end{macrocode}
+%    We need a trivial top-level definition for
+%    \cs{@outputbox@reinsertbskip} in case the first page has no
+%    bottom glue and the command gets called.
+%    \begin{macrocode}
+\let\@outputbox@reinsertbskip\relax
+%    \end{macrocode}
+%    If nothing should get fixed we set both commands to \cs{relax}.
+%    \begin{macrocode}
+\else
+  \let\@outputbox@removebskip \relax
+  \let\@outputbox@reinsertbskip\relax
+\fi
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
 %
 %
+% \subsection{The output routine configuration components}
+%
+%    Here we provide the components that are used to define
+%    \cs{@makecol@appendblocks}.
+%
+%
+%  \begin{macro}{@outputbox@append}
+%
+%    This general purpose command alters the \cs{@outputbox} box by
+%    appending material to it. As this is a box typesetting operation
+%    we make sure that the last line of the box reflects the true
+%    depth of the last line (in case that is needed later). We also
+%    expose the current depth of \cs{@outputbox} as
+%    \cs{@outputbox@depth} before unboxing so that its value can be
+%    used by \verb=#1= if wanted.
 %    \begin{macrocode}
-
-
-
-
-%    \cs{@makecol} support macros:
-%    \begin{macrocode}
-%---------------------------------------------------------
 \def\@outputbox@append #1{%
-  \if!\detokenize{#1}!\else
+%  \if!\detokenize{#1}!\else
      \setbox\@outputbox \vbox {%
        \boxmaxdepth \@maxdepth
        \@outputbox@depth\dp\@outputbox      % if needed in #1
        \unvbox \@outputbox
        #1%
      }%
-  \fi
+%  \fi
 }
-%---------------------------------------------------------
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%
+%
+%  \begin{macro}{\@outputbox@appendfootnotes}
+%
+%    This command appends the footnotes to the \cs{@outputbox} (if
+%    there are any). If not then it does nothing.
+%    \begin{macrocode}
 \def\@outputbox@appendfootnotes {%
    \ifvoid\footins \else
-%   
+%    \end{macrocode}
+%    First two configuration points: what to do if we are in a split
+%    footnote situation and a second one that does some manipulation
+%    of the \cs{footins} box before it gets appened.
+% \fmi{this code will get revised as part of CP handling  in the future}
+%    \begin{macrocode}
      \@makecol@handlesplitfootnotes
-%     
      \@makecol@preparefootinshook
-%     
+%    \end{macrocode}
+%    Then the footnotes are appended:
+%    \begin{macrocode}
      \@outputbox@append{%
        \vskip \skip\footins
        \color@begingroup
          \normalcolor
          \footnoterule
-         \unvbox \footins                   %% preparefootinshook should update \footins
+         \unvbox \footins
        \color@endgroup
       }%
   \fi
 }
-
-\let\@outputbox@reinsertbottomskip\relax
-%---------------------------------------------------------
-% with incomplete preparation for tagging commented out
-
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%
+%
+%  \begin{macro}{\@outputbox@attachfloats}
+%  \begin{macro}{\@outputbox@attachtopfloats}
+%  \begin{macro}{\@outputbox@attachbottomfloats}
+%    Attaching top and bottom floats can usually be done in one go,
+%    but for special layouts we might want more control sowe provide
+%    also separate commands.
+%    \begin{macrocode}
+\let \@outputbox@attachfloats \@combinefloats
+%    \end{macrocode}
+%    
+%    \begin{macrocode}
+\def \@outputbox@attachtopfloats {%
+  \ifx \@toplist\@empty \else \@cflt \fi
+}  
+\def \@outputbox@attachbottomfloats {%
+    \ifx \@botlist\@empty \else \@cflb \fi
+}  
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%  \end{macro}
+%
+%
+%
+%
+%  \begin{macro}{\@makecol@handlesplitfootnotes}
+%  \begin{macro}{\@makecol@splitfootnotemessagehook}
+%    This is only an early draft and doesn't do much.
+%    Contains  incomplete preparation for tagging commented out.
+% \fmi{Interfaces and code will change in the future}
+%    \begin{macrocode}
 \def\@makecol@handlesplitfootnotes {%
 %  \ifx\splitfootnote@continuation\@empty \else
 %    \setbox\footins\vbox{\splitfootnote@continuation\unvbox\footins}%
@@ -1167,75 +1300,29 @@
   \fi
 }
 %\def\splitfootnote@continuation{}
-%---------------------------------------------------------
 %    \end{macrocode}
-%    This is really a bug fix for the kernel, but perhaps one has to
-%    make it optional because it is in there since day one). If
-%    \cs{raggedbottom} is in force, footnotes get attached to the main
-%    galley at a distance of \cs{footskip} on all pages except on
-%    those that are ended by \cs{newpage} or \cs{clearpage} where the
-%    resulting \cs{vfill} pushes the footnotes to the very bottom.
-%
-%    This is kind of a weird difference to ending a page with
-%    \cs{pagebreak} in that case---in that case the page is also run
-%    short, but the footnote is not pushed to the bottom.
+%    This  could issue warning if split footnotes are encountered.
 %    \begin{macrocode}
-\ifFN@fixskip
-  \def\@outputbox@fixbottomskip{%
-    \ifx\@textbottom\relax
-      \global\let\@outputbox@reinsertbottomskip\relax
-    \else
-      \@outputbox@append{%
-        \@tempskipa\lastskip
-        \ifnum \gluestretchorder\@tempskipa>\z@
-          \vskip-\@tempskipa
-          \xdef\@outputbox@reinsertbottomskip{\vskip\the\@tempskipa}%
-        \fi
-      }%
-   \fi
-  }
-\else  
-  \let\@outputbox@fixbottomskip \relax
-\fi
-%---------------------------------------------------------
-
-% \@combinefloats no longer used
-
-
-\def \@outputbox@appendfloats{%
-   \let\@elt\relax
-   \xdef\@freelist{\@freelist\@midlist}%
-   \global \let \@midlist \@empty
-   \ifx \@toplist\@empty \else
-     \@cflt
-   \fi
-   \ifx \@botlist\@empty \else
-     \@cflb
-   \fi
-}
-
-
-%---------------------------------------------------------
-%
+\let \@makecol@splitfootnotemessagehook \@empty
 %    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
 %
 %
-%    \cs{@makecol} hooks:
+%
+%  \begin{macro}{\@makecol@preparefootinshook}
+%    
+%    Configuration point to support manipulation of footins box
+%    (result needs to be moved back in there). Used by the
+%    \texttt{para} option.
+% \fmi{Interface will change in the future}
 %    \begin{macrocode}
-%=========================================================
-\let \@makecol@splitfootnotemessagehook \@empty     % could issue warning if
-                                                    % split footnotes are encountered
-%---------------------------------------------------------
-\let \@makecol@preparefootinshook \@empty  % to support manipulation
-                                           % of footins box (result needs to be
-                                           % moved back in there) 
-%=========================================================
+\let \@makecol@preparefootinshook \@empty
 %    \end{macrocode}
-%
 %
 %    Footnote box layout for para footnotes;
 %    this would also be the hook to support dblfootnotes (from the
-%    \texttt{dblfnote} package)
+%    \texttt{dblfnote} package if we integrate that).
 %    \begin{macrocode}
 \ifFN@para
   \def\@makecol@preparefootinshook {%
@@ -1243,18 +1330,18 @@
     }
 \fi
 %    \end{macrocode}
+%  \end{macro}
 %
-
-
-
-
-
-%    Placement of footnotes in relation to main galley and floats.
-
-
+%
+%
+% \subsection{The \cs{@makecol} configuration based on options}
+%
+%
+%    Placement of footnotes in relation to main galley and floats is
+%    covered by the value of \cs{FN@ORspacehandling} (distribution of
+%    space) and the status of the switch \texttt{@abovefloats}.
 %
 %    \begin{macrocode}
-
 \ifcase \FN@ORspacehandling\relax
 %---------------------------------------------------------
 % 0 = undefined
@@ -1264,78 +1351,104 @@
 %---------------------------------------------------------
 % 1 = space above footnotes and floats
 %---------------------------------------------------------
-
+%    \end{macrocode}
+%    All excess space are above the footnote and bottom float
+%    blocks. The order of the blocks depend on \texttt{@abovefloats}:
+%    \begin{macrocode}
   \ifFN@abovefloats
 %---------------------------------------------------------
-    % footnotes above floats both at bottom
+%    \end{macrocode}
+%    Footnotes above floats both at bottom:
+%    \begin{macrocode}
     \def\@makecol@appendblocks {%
-       \@outputbox@append          {\vfill}%
+       \@outputbox@append{\vfill}%
        \@outputbox@appendfootnotes
-       \@outputbox@appendfloats
+       \@outputbox@attachfloats
       }
-  \else
 %---------------------------------------------------------
-    % footnotes bottom below floats
+  \else
+%    \end{macrocode}
+%    Footnotes below floats:
+%    \begin{macrocode}
     \def\@makecol@appendblocks {%
-       \@outputbox@append          {\vfill}%
-       \@outputbox@appendfloats
+       \@outputbox@append{\vfill}%
+       \@outputbox@attachfloats
        \@outputbox@appendfootnotes
     }
   \fi
-
 \or
 %---------------------------------------------------------
 % 2 = space between footnotes and floats (or floats and footnotes)
 %---------------------------------------------------------
-
   \ifFN@abovefloats
 %---------------------------------------------------------
-     % footnotes above floats at bottom
+%    \end{macrocode}
+%    Footnotes first then space then floats at bottom:
+%    \begin{macrocode}
      \def\@makecol@appendblocks {%
         \@outputbox@appendfootnotes
-        \@outputbox@append          {\vfill}%
-        \@outputbox@appendfloats
+        \@outputbox@append{\vfill}%
+        \@outputbox@attachfloats
      }
 %---------------------------------------------------------
   \else
-%---------------------------------------------------------
-     % floats above footnotes at bottom
+%    \end{macrocode}
+%    Then the other way around:
+%    \begin{macrocode}
      \def\@makecol@appendblocks {%
-        \@outputbox@appendfloats
-        \@outputbox@append          {\vfill}%
+        \@outputbox@attachfloats
+        \@outputbox@append{\vfill}%
         \@outputbox@appendfootnotes
      }
 %---------------------------------------------------------
   \fi
-
 \or
 %---------------------------------------------------------
 % 3 = space below footnotes and floats
 %---------------------------------------------------------
-  
+%    \end{macrocode}
+%    If the excess spaces goes on the bottom we don't append
+%    \cs{vfill} there. Instead we make use of the fact that
+%    \cs{raggedbottom} already puts a stretchable space there, and if
+%    we are in a \cs{flushbottom} scenario then any excess space is
+%    supposed to be distributed across the whole page.
+%    \begin{macrocode}
   \ifFN@abovefloats
 %---------------------------------------------------------
     \def\@makecol@appendblocks {%
        \@outputbox@appendfootnotes
-       \@outputbox@appendfloats
-       \@outputbox@reinsertbottomskip
+       \@outputbox@attachfloats
+%    \end{macrocode}
+%    We do, however, reinsert the bottom skip from \cs{newpage} if it
+%    was taken out earlier. This is, strictly speaking, not necessary
+%    in most cases, but it is a \cs{vfil} while \cs{raggedbottom} is
+%    only generating \verb=\vspace{0pt plus .0001fil}=, so if you have
+%    several \cs{vfil} on the page before the \cs{newpage} you would
+%    alter the space distribution if one is taken out.
+%    \begin{macrocode}
+       \@outputbox@reinsertbskip
     }
   \else
 %---------------------------------------------------------
-    % footnotes below floats close to text
+%    \end{macrocode}
+%    Same thing but with blocks swapped.
+%    \begin{macrocode}
     \def\@makecol@appendblocks {%
-       \@outputbox@appendfloats
+       \@outputbox@attachfloats
        \@outputbox@appendfootnotes
-       \@outputbox@reinsertbottomskip
+       \@outputbox@reinsertbskip
 }
 %---------------------------------------------------------
   \fi
-
-
 \else
 %---------------------------------------------------------
 % 3 > undefined
 %---------------------------------------------------------
+%    \end{macrocode}
+%    The \cs{ERROR} here and above should nevery execute, like ``This
+%    can't happen'' in the \TeX{} program code. If they execute then code
+%    is badly broken.
+%    \begin{macrocode}
 \ERROR
 \fi
 

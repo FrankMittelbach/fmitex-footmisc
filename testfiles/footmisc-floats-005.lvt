@@ -10,9 +10,9 @@
 \makeatletter
     \def\@makecol@appendblocks {%
        \@outputbox@append          {\vskip 0pt plus.2fill}%
-       \@outputbox@appendfloats    {}{}%
+       \@outputbox@attachfloats
        \@outputbox@append          {\vfill}%
-       \@outputbox@appendfootnotes {}%
+       \@outputbox@appendfootnotes
     }
 \makeatother
 
