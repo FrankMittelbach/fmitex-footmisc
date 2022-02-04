@@ -2,7 +2,8 @@
 
 -----
 
-This is the footmisc package originally written by Robin Fairbairns.
+This is the footmisc package originally written by Robin Fairbairns,
+these days maintained and developed further by Frank Mittelbach.
 
 
 Package source can be found at:
@@ -16,7 +17,7 @@ The license is LPPL 1.3c.
 -----
 
 Copyright (C) 1995-2011 Robin Fairbairns<br />
-Copyright (C) 2020-2022 Frank Mittelbach<br />
+Copyright (C) 2018-2022 Frank Mittelbach<br />
 <https://latex-project.org/> <br />
 All rights reserved.
 

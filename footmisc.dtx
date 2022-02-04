@@ -91,7 +91,6 @@
 %
 % \fi
 %
-
 %
 %
 % \title{\texttt{footmisc} ---\\
@@ -812,10 +811,11 @@
 %   \cs{FN@ORspacehandling}. The default is case 3.
 %    \begin{macrocode}
 \let\FN@ORspacehandling\thr@@
-
 %    \end{macrocode}
 % \end{macro}
-
+%
+%
+%
 % \subsubsection{The \texttt{bottom} option}
 %
 %  \begin{macro}{\ds@bottom}
@@ -1037,35 +1037,36 @@
 %    code in the middle has moved into a configuration point.
 %    \begin{macrocode}
 \def \@makecol {%
-   \setbox\@outputbox \box\@cclv
+  \@kernel@before@cclv
+  \setbox\@outputbox \box\@cclv
 %    \end{macrocode}
 %    The only real addition is the next command which either does
 %    nothing or removes an infinite glue from the bottom of the
 %    \cs{@outputbox}.
 %    \begin{macrocode}
-   \@outputbox@removebskip
+  \@outputbox@removebskip
 %    \end{macrocode}
 %    Any ``here'' floats in the \cs{@outputbox} are now handled so we
 %    recycle their registers and put them back to the \cs{@freelist}.
 %    \begin{macrocode}
-   \let\@elt\relax
-   \xdef\@freelist{\@freelist\@midlist}%
-   \global \let \@midlist \@empty
+  \let\@elt\relax
+  \xdef\@freelist{\@freelist\@midlist}%
+  \global \let \@midlist \@empty
 %    \end{macrocode}
 %    Here we have the configurable part.
 % \fmi{Interface to configuration points will change in the future}
 %    \begin{macrocode}
-   \@makecol@appendblocks 
+  \@makecol@appendblocks 
 %    \end{macrocode}
 %    The we deal with any \cs{enlargethispage} or run the normal code
 %    to build a column.
 %    \begin{macrocode}
-   \ifvbox\@kludgeins
-      \@makespecialcolbox
-   \else
-      \@makenormalcolbox
-   \fi
-   \global \maxdepth \@maxdepth
+  \ifvbox\@kludgeins
+     \@makespecialcolbox
+  \else
+     \@makenormalcolbox
+  \fi
+  \global \maxdepth \@maxdepth
 }
 %    \end{macrocode}
 %  \end{macro}
@@ -1079,7 +1080,7 @@
 \newdimen\@outputbox@depth
 %    \end{macrocode}
 %  \end{macro}
-
+%
 %  \begin{macro}{\@makenormalcolbox}
 %    Taken out of \cs{@makecol} for readability.
 %    \begin{macrocode}
@@ -1191,6 +1192,20 @@
 %  \end{macro}
 %
 %
+%  \begin{macro}{\@kernel@before@cclv}
+%  \begin{macro}{\@kernel@before@footins}
+%    These two commands are internal kernel hooks intended for tagging
+%    support in case that is active. By default they do nothing (and
+%    may already been defined.
+%    \begin{macrocode}
+\providecommand\@kernel@before@cclv{}
+\providecommand\@kernel@before@footins{}
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%
+%
 % \subsection{The output routine configuration components}
 %
 %    Here we provide the components that are used to define
@@ -1243,6 +1258,7 @@
 %    \begin{macrocode}
      \@outputbox@append{%
        \vskip \skip\footins
+       \@kernel@before@footins
        \color@begingroup
          \normalcolor
          \footnoterule
@@ -1253,7 +1269,6 @@
 }
 %    \end{macrocode}
 %  \end{macro}
-%
 %
 %
 %
@@ -1451,7 +1466,6 @@
 %    \begin{macrocode}
 \ERROR
 \fi
-
 
 %    \end{macrocode}
 %
@@ -2087,7 +2101,9 @@
     }%
   }%
 }
-
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \def\FN@build@symboldef#1{%
   \def\@tempa{#1}%
   \ifx\@tempa\@tempb
