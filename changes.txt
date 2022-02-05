@@ -1,0 +1,9 @@
+2022-02-05  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx:
+	Previous version was 5.5 from 2011. This is now version 6.
+	There is a rollback possibility using either a date '[=YYYY-MM-DD]'
+	or the string '[=v5]' as the second optional argument to
+	\usepackage.
+
+

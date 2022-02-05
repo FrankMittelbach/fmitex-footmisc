@@ -1196,11 +1196,12 @@
 %  \begin{macro}{\@kernel@before@footins}
 %    These two commands are internal kernel hooks intended for tagging
 %    support in case that is active. By default they do nothing (and
-%    may already been defined.
+%    may have been defined already by \cs{DocumentMetadata}).
 %    \begin{macrocode}
 \providecommand\@kernel@before@cclv{}
 \providecommand\@kernel@before@footins{}
 %    \end{macrocode}
+%  \end{macro}
 %  \end{macro}
 %
 %
@@ -1246,7 +1247,7 @@
 \def\@outputbox@appendfootnotes {%
    \ifvoid\footins \else
 %    \end{macrocode}
-%    First two configuration points: what to do if we are in a split
+%    First come two configuration points: what to do if we are in a split
 %    footnote situation and a second one that does some manipulation
 %    of the \cs{footins} box before it gets appended.
 % \fmi{this code will get revised as part of CP handling  in the future}
