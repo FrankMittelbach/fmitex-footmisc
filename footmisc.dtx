@@ -38,7 +38,7 @@
 %<+package>\DeclareCurrentRelease{}{2022-02-01}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2022/02/01 v6.0a
+        [2022/02/07 v6.0a
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -1168,7 +1168,8 @@
 %    elsewhere. As we have to do this globally, we also need to
 %    explicitly reset it if we don't find any such glue.
 %    \begin{macrocode}
-          \xdef\@outputbox@reinsertbskip{\vskip\the\@tempskipa}%
+          \xdef\@outputbox@reinsertbskip
+              {\noexpand\@outputbox@append{\vskip\the\@tempskipa}}%
         \else
           \global\let\@outputbox@reinsertbskip\relax
         \fi
@@ -1264,6 +1265,11 @@
        \color@begingroup
          \normalcolor
          \footnoterule
+%    \end{macrocode}
+%    Support for \pkg{pdfcolfoot}, eventually this can go once color
+%    is properly supported.
+%    \begin{macrocode}
+         \csname pdfcolfoot@current\endcsname
          \unvbox \footins
        \color@endgroup
       }%
