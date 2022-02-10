@@ -35,10 +35,10 @@
 %<+package>\providecommand\DeclareCurrentRelease[2]{}
 %<+package>
 %<+package>\DeclareRelease{v5}{2011-06-06}{footmisc-2011-06-06.sty}
-%<+package>\DeclareCurrentRelease{}{2022-02-01}
+%<+package>\DeclareCurrentRelease{}{2022-02-10}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2022/02/07 v6.0a
+        [2022/02/10 v6.0a
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -55,6 +55,7 @@
 %<*driver>
 \setcounter{errorcontextlines}{999}
 \documentclass{ltxdoc}
+\usepackage{hyperref}
 %    \end{macrocode}
 %
 % We limit the things that we will index
@@ -144,7 +145,9 @@
 % In 2022 a few new options (\texttt{abovefloats},
 % \texttt{belowfloats}, \texttt{bottomfloats}, and \texttt{bottomfootnotes})
 % got introduced and the package now works
-% with \textsf{hyperref} regardless of loading order.
+% with \textsf{hyperref} regardless of loading order. There arem
+% however, still a few restrictions when using both packages together,
+% in particular the \texttt{multiple} option does not fully work.
 %
 %
 %
