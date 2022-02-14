@@ -1,10 +1,10 @@
-\documentclass{article}
+\documentclass[twocolumn]{article}
 
 \input{regression-test}
 
 \flushbottom
 
-\usepackage[bottomfootnotes]{footmisc}
+\usepackage[belowfloats]{footmisc}
 
 \newcommand\afloat[2][b]{\begin{figure}[#1] \hrule #2 (position #1) \hrule \caption{#2}\end{figure}}
 
@@ -14,7 +14,7 @@
 
 \START
 
-\section{bottomfootnotes --- flushbottom}
+\section{belowfloats --- flushbottom}
 
 Text, footnotes\footnote{A}, floats + pagebreak
 
@@ -81,5 +81,7 @@ Just Text + newpage
 a second paragraph
 
 \newpage
+
+
 \OMIT
 \end{document}

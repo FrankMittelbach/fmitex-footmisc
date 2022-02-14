@@ -6,7 +6,7 @@ l3build save \
 	footmisc-004 \
 	footmisc-005 \
 	footmisc-006 \
-	footmisc-007 \
+	footmisc-007-rollback \
 	footmisc-floats-000 \
 	footmisc-floats-001 \
 	footmisc-floats-002 \
@@ -18,7 +18,6 @@ l3build save \
 	footmisc-floats-latex \
 	footmisc-floats-bottom \
 	footmisc-floats-bottomfloats \
-	footmisc-floats-bottomfootnotes \
 	footmisc-floats-abovefloats \
 	footmisc-floats-belowfloats \
 	footmisc-floats-bottom-abovefloats \
@@ -26,11 +25,33 @@ l3build save \
 	footmisc-floats-latex-flushbottom \
 	footmisc-floats-bottom-flushbottom \
 	footmisc-floats-bottomfloats-flushbottom \
-	footmisc-floats-bottomfootnotes-flushbottom \
 	footmisc-floats-abovefloats-flushbottom \
 	footmisc-floats-belowfloats-flushbottom \
 	footmisc-floats-bottom-abovefloats-flushbottom \
 	footmisc-floats-bottom-belowfloats-flushbottom
+
+
+l3build save \
+	footmisc-twocol-floats-000 \
+	footmisc-twocol-floats-abovefloats-flushbottom \
+	footmisc-twocol-floats-abovefloats \
+	footmisc-twocol-floats-belowfloats-flushbottom \
+	footmisc-twocol-floats-belowfloats \
+	footmisc-twocol-floats-bottom-abovefloats-flushbottom \
+	footmisc-twocol-floats-bottom-abovefloats \
+	footmisc-twocol-floats-bottom-belowfloats-flushbottom \
+	footmisc-twocol-floats-bottom-belowfloats \
+	footmisc-twocol-floats-bottom-flushbottom \
+	footmisc-twocol-floats-bottom \
+	footmisc-twocol-floats-bottomfloats-flushbottom \
+	footmisc-twocol-floats-bottomfloats \
+	footmisc-twocol-floats-latex-flushbottom \
+	footmisc-twocol-floats-latex
+
+
+exit
+
+
 
 
 

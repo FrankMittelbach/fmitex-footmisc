@@ -35,10 +35,10 @@
 %<+package>\providecommand\DeclareCurrentRelease[2]{}
 %<+package>
 %<+package>\DeclareRelease{v5}{2011-06-06}{footmisc-2011-06-06.sty}
-%<+package>\DeclareCurrentRelease{}{2022-02-10}
+%<+package>\DeclareCurrentRelease{}{2022-02-14}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2022/02/10 v6.0a
+        [2022/02/14 v6.0b
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -104,7 +104,7 @@
 % \maketitle
 %
 %
-% \newcommand\fmi[1]{\begin{quote} TODO: \itshape #1\end{quote}}
+% \newcommand\fmi[1]{\begin{quote} NOTE: \itshape #1\end{quote}}
 % \newcommand\NEW[1]{\marginpar{\mbox{}\hfill\fbox{New: #1}}}
 % \providecommand\pkg[1]{\texttt{#1}}
 %
@@ -143,7 +143,7 @@
 % got around finishing the changes he started to make in 2018.
 %
 % In 2022 a few new options (\texttt{abovefloats},
-% \texttt{belowfloats}, \texttt{bottomfloats}, and \texttt{bottomfootnotes})
+% \texttt{belowfloats}, and \texttt{bottomfloats}
 % got introduced and the package now works
 % with \textsf{hyperref} regardless of loading order. There arem
 % however, still a few restrictions when using both packages together,
@@ -347,10 +347,23 @@
 % \end{itemize}
 % These can be achieved by applying one or more of the options
 % discussed below.
-%^^A \texttt{abovefloats}, \texttt{belowfloats}, \texttt{bottom},
-%^^A \texttt{bottomfloats}, or \texttt{bottomfootnotes}.
 %
 %
+%
+% \subsubsection{Option \texttt{bottom}}
+%
+% This option forces footnotes (but not the floats) to the bottom of the page and
+% therefore by default also implies \texttt{belowfloats}. If
+% \cs{raggedbottom} is in force then the excess space goes above the
+% footnotes if any are present. If \cs{flushbottom} is in force there
+% is no visible difference to just specifying \texttt{belowfloats}.
+
+% \subsubsection{Option \texttt{bottomfloats}}
+%
+% If\NEW{2022-02}
+% you want force only floats to the bottom while the footnotes stay close to the text
+% use the option \texttt{bottomfloats}. If not overwritten this
+% implies \texttt{abovefloats}.
 %
 % \subsubsection{Options \texttt{abovefloats} and \texttt{belowfloats}}
 %
@@ -361,21 +374,25 @@
 % in section~\ref{sec:spacebug}.
 %
 %
-% \subsubsection{Option \texttt{bottom}}
+% \subsubsection{Combining the four options}
 %
-% This option forces footnotes \emph{and} floats to the bottom and
-% also implies \texttt{belowfloats}. If you want both at the bottom
-% but footnotes first, then add \texttt{abovefloats} in addition.
-%
-% \subsubsection{Options \texttt{bottomfloats} and
-% \texttt{bottomfootnotes}}
-%
-% If\NEW{2022-02}
-% you want force only floats or only footnotes to the bottom then
-% use one of these options. As they naturally define the order, i.e.,
-% in case of \texttt{bottomfloats} footnotes are obviously earlier, the
-% options \texttt{abovefloats} and \texttt{belowfloats} are
-% meaningless and are ignored if given.
+% By\NEW{2022-02}
+% default, \texttt{bottom} and \texttt{bottomfloats} options put any excess
+% space (i.e., when \cs{raggedbottom} is in force) between floats
+% and footnotes if both are present on a given page. If only one of
+% them is present, the excess space goes below the text. If you prefer
+% both footnotes and floats at the bottom instead, you can achieve this as follows:
+% \begin{description}
+% \item[\normalfont\texttt{bottom,abovefloats}] This puts the footnotes above any
+%   floats and both at the bottom when present.
+% \item[\normalfont\texttt{bottomfloats,belowfloats}] This puts
+%   floats and footnotes at the bottom but
+%   footnotes last if both are present. If there are only footnotes
+%   they are still placed at the very bottom (think of them as being
+%   placed below the float ``area'' even if that has no floats inside).
+% \end{description}
+% The other combinations are duplicates, e.g.,
+% \texttt{bottom,belowfloats} is the same as just specifying \texttt{bottom}.
 %
 %
 % \subsubsection{Fixing a strange behavior of \LaTeX}
@@ -585,6 +602,11 @@
 %   preliminary work towards interworking with \textsf{footmisc} has
 %   been completed, but more remains to be done at the time of
 %   writing.
+%
+% \item[\normalfont\textsf{hyperref}] The \textsf{hyperref} package
+%    works together with \textsf{footmisc} (as proved  by this
+%    documentation), but at this point in time not all options of
+%    \textsf{footmisc} can be used --- this will change over time.
 % \end{description}
 %
 % \StopEventually{}
@@ -796,28 +818,38 @@
 % \subsection{The footnote/float placement options}
 %
 % We have up to three blocks on a page (four if you count
-% top-floats). If there is any excess space that needs to be added the
+% top-floats but they don't matter here). If there is any excess space that needs to be added the
 % question is where that goes:
 % \begin{enumerate}
 % \item above footnotes and floats;
 % \item between footnotes and floats;
 % \item after footnotes and floats;
-% \item nowhere in particular (everything is equally spaced out).
+% \item nowhere in particular (everything is equally spaced out if
+% \cs{flushbottom} is in force and close together otherwise).
 % \end{enumerate}
-% Technically, the last two cases can be combined in one:
-% \cs{raggedbottom} adds some ``fill'' space at the very bottom (which
-% covers case 3) and \cs{flushbottom} puts nothing in this place, so
-% covers case 4 if we do not add any \cs{vfill} elsewhere.
+%  We handle that with a 3-way switch differenciating the different
+% bottom cases: \texttt{bottom}, \texttt{bottomfloats} or neither of
+% the two options. Within those with split the coding based on whether
+% or not \texttt{abovefloats} was given (explicitly or implicitly).
+
 %
-%
-% \begin{macro}{\FN@ORspacehandling}
+% \begin{macro}{\FN@bottomcases}
 %    We record in which case we want to be in
-%   \cs{FN@ORspacehandling}. The default is case 3.
+%   \cs{FN@bottomcases}. The default is case 3 (no option).
 %    \begin{macrocode}
-\let\FN@ORspacehandling\thr@@
+\let\FN@bottomcases\thr@@
 %    \end{macrocode}
 % \end{macro}
 %
+%
+% \subsubsection{The \texttt{abovefloats}, \texttt{belowfloats} options}
+%
+% \begin{macro}{\ifFN@abovefloats}
+%    All this needs to do is to set a flag to say that it should happen.
+%    \begin{macrocode}
+\newif\ifFN@abovefloats  \FN@abovefloatstrue
+%    \end{macrocode}
+% \end{macro}
 %
 %
 % \subsubsection{The \texttt{bottom} option}
@@ -827,7 +859,7 @@
 %  by default below the floats.
 %    \begin{macrocode}
 \DeclareOption{bottom}{%
-  \let\FN@ORspacehandling\@ne
+  \let\FN@bottomcases\@ne
   \FN@abovefloatsfalse
 %    \end{macrocode}
 %    We also state that we want to fix \LaTeX{} space issue (as we do
@@ -838,40 +870,30 @@
 %    \end{macrocode}
 %  \end{macro}
 %
-% \subsection{The \texttt{abovefloats}, \texttt{belowfloats} options}
 %
-% \begin{macro}{\ifFN@abovefloats}
-%    All this needs to do is to set a flag to say that it should happen.
+% \subsubsection{The \texttt{bottomfloats} option}
+%
+% \begin{macro}{ds@bottomfloats,ds@bottomfootnotes}
+%    This option is for case 2. By default the footnotes are above
+%    (close to the text).
 %    \begin{macrocode}
-\newif\ifFN@abovefloats  \FN@abovefloatstrue
+\DeclareOption{bottomfloats}{%
+  \let\FN@bottomcases\tw@
+  \FN@abovefloatstrue \FN@fixskiptrue
+}
 %    \end{macrocode}
 % \end{macro}
 %
-%
 % \begin{macro}{ds@abovefloats,ds@belowfloats}
-%    These options change the order and that's it.
+%    These options change the order and that's it. The important
+%    aspect is that they are declared after the last two, otherwise
+%    they can't overwrite them.
 %    \begin{macrocode}
 \DeclareOption{abovefloats}{\FN@abovefloatstrue  \FN@fixskiptrue}
 \DeclareOption{belowfloats}{\FN@abovefloatsfalse \FN@fixskiptrue}
 %    \end{macrocode}
 % \end{macro}
 %
-% \subsection{The \texttt{bottomfloats}, \texttt{bottomfootnotes} options}
-%
-% \begin{macro}{ds@bottomfloats,ds@bottomfootnotes}
-%    These options are for case 2. In addition they have to say what
-%    comes first.
-%    \begin{macrocode}
-\DeclareOption{bottomfloats}{%
-  \let\FN@ORspacehandling\tw@
-  \FN@abovefloatstrue \FN@fixskiptrue
-}
-\DeclareOption{bottomfootnotes}{%
-  \let\FN@ORspacehandling\tw@
-  \FN@abovefloatsfalse \FN@fixskiptrue
-}
-%    \end{macrocode}
-% \end{macro}
 %
 %
 % \subsection{The \texttt{marginal} option}
@@ -1229,18 +1251,15 @@
 %    used by \verb=#1= if wanted.
 %    \begin{macrocode}
 \def\@outputbox@append #1{%
-%  \if!\detokenize{#1}!\else
      \setbox\@outputbox \vbox {%
        \boxmaxdepth \@maxdepth
        \@outputbox@depth\dp\@outputbox      % if needed in #1
        \unvbox \@outputbox
        #1%
      }%
-%  \fi
 }
 %    \end{macrocode}
 %  \end{macro}
-%
 %
 %
 %
@@ -1358,24 +1377,68 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+% \fmi{Some temp interfaces until configuration points are available.}
+%
+%  \begin{macro}{\@if@flushbottom@TF}
+%    Test for \cs{flushbottom} (currently not used).
+%    \begin{macrocode}
+\def\@if@flushbottom@TF{%
+  \ifx\@textbottom\relax
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%  \begin{macro}{\@if@footnotes@TF}
+%    Test if footnotes are present on the current page.
+%    \begin{macrocode}
+\def\@if@footnotes@TF{%
+  \ifvoid\footins
+    \expandafter\@secondoftwo
+  \else
+    \expandafter\@firstoftwo
+  \fi
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%
+%  \begin{macro}{\@if@bfloats@TF}
+%    Test if bottom floats are around.
+%    \begin{macrocode}
+\def\@if@bfloats@TF{%
+  \ifx \@botlist\@empty
+    \expandafter\@secondoftwo
+  \else
+    \expandafter\@firstoftwo
+  \fi
+}
+%    \end{macrocode}
+%  \end{macro}
+%
+%
 %
 %
 % \subsection{The \cs{@makecol} configuration based on options}
 %
 %
 %    Placement of footnotes in relation to main galley and floats is
-%    covered by the value of \cs{FN@ORspacehandling} (distribution of
-%    space) and the status of the switch \texttt{@abovefloats}.
+%    covered by the value of \cs{FN@bottomcases} (type of bottom option)
+%    and the status of the switch \texttt{@abovefloats}.
 %
 %    \begin{macrocode}
-\ifcase \FN@ORspacehandling\relax
+\ifcase \FN@bottomcases\relax
 %---------------------------------------------------------
 % 0 = undefined
 %---------------------------------------------------------
 \ERROR
 \or
 %---------------------------------------------------------
-% 1 = space above footnotes and floats
+% 1 = bottom option given
 %---------------------------------------------------------
 %    \end{macrocode}
 %    All excess space are above the footnote and bottom float
@@ -1384,27 +1447,33 @@
   \ifFN@abovefloats
 %---------------------------------------------------------
 %    \end{macrocode}
-%    Footnotes above floats both at bottom:
+%    If footnotes above floats floats both are at the bottom:
 %    \begin{macrocode}
     \def\@makecol@appendblocks {%
-       \@outputbox@append{\vfill}%
+       \@if@footnotes@TF
+          {\@outputbox@append{\vfill}}%
+          {\@if@bfloats@TF{\@outputbox@append{\vfill}}%
+                          {\@outputbox@reinsertbskip}}%
        \@outputbox@appendfootnotes
        \@outputbox@attachfloats
       }
 %---------------------------------------------------------
   \else
 %    \end{macrocode}
-%    Footnotes below floats:
+%    Otherwise only the footnotes are at the very bottom and floats
+%    stay close to the text:
 %    \begin{macrocode}
     \def\@makecol@appendblocks {%
-       \@outputbox@append{\vfill}%
        \@outputbox@attachfloats
+       \@if@footnotes@TF
+          {\@outputbox@append{\vfill}}%
+          {\@outputbox@reinsertbskip}%
        \@outputbox@appendfootnotes
     }
   \fi
 \or
 %---------------------------------------------------------
-% 2 = space between footnotes and floats (or floats and footnotes)
+% 2 = bottomfloats option given
 %---------------------------------------------------------
   \ifFN@abovefloats
 %---------------------------------------------------------
@@ -1413,27 +1482,35 @@
 %    \begin{macrocode}
      \def\@makecol@appendblocks {%
         \@outputbox@appendfootnotes
-        \@outputbox@append{\vfill}%
+        \@if@bfloats@TF
+            {\@outputbox@append{\vfill}}%
+            {\@outputbox@reinsertbskip}%
         \@outputbox@attachfloats
      }
 %---------------------------------------------------------
   \else
 %    \end{macrocode}
-%    Then the other way around:
+%    If \texttt{belowfloats} was given too, then the excess space ends
+%    up directly below the text 
 %    \begin{macrocode}
      \def\@makecol@appendblocks {%
+       \@if@footnotes@TF
+          {\@outputbox@append{\vfill}}%
+          {\@if@bfloats@TF{\@outputbox@append{\vfill}}%
+                          {\@outputbox@reinsertbskip}}%
         \@outputbox@attachfloats
-        \@outputbox@append{\vfill}%
         \@outputbox@appendfootnotes
      }
 %---------------------------------------------------------
   \fi
 \or
 %---------------------------------------------------------
-% 3 = space below footnotes and floats
+% 3 = neither bottom nor bottomfloats given
 %---------------------------------------------------------
 %    \end{macrocode}
-%    If the excess spaces goes on the bottom we don't append
+%    In this case any excess space distribution is handled by
+%    \cs{raggedbottom} or \cs{flushbottom} settings. In case of
+%    \cs{raggedbottom} it goes to the bottom but we don't append
 %    \cs{vfill} there. Instead we make use of the fact that
 %    \cs{raggedbottom} already puts a stretchable space there, and if
 %    we are in a \cs{flushbottom} scenario then any excess space is
