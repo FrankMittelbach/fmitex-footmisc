@@ -2,7 +2,7 @@
 
 	* footmisc.dtx:
 	Corrected the "bottom" option so that it behaves like in v5. Dropped
-	"bottomfloats" because everxything can be expressed with combinations
+	"bottomfootnotes", because everything can be expressed with combinations
 	of the four options "bottom" (footnotes at the bottom), "bottomfloats",
 	"abovefloats", and "belowfloats". (gh/1)
 
