@@ -38,7 +38,7 @@
 %<+package>\DeclareCurrentRelease{}{2022-02-14}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2022/02/14 v6.0b
+        [2022/02/16 v6.0b
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -410,8 +410,8 @@
 %
 % This is automatically corrected if \pkg{footmisc} is loaded with any
 % of the options that deal with footnote placement, i.e.,
-% \texttt{abovefloats}, \texttt{belowfloats}, \texttt{bottom},
-% \texttt{bottomfloats}, or \texttt{bottomfootnotes}. In particular,
+% \texttt{abovefloats}, \texttt{belowfloats}, \texttt{bottom}, or
+% \texttt{bottomfloats}. In particular,
 % if you want to have the standard \LaTeX{} placement (but with this
 % strange behavior fixed, apply \texttt{abovefloats} (which is the
 % normal order but with the bug fixed).
@@ -420,7 +420,7 @@
 % \subsection{Option \texttt{marginal}}
 %
 % This option adjusts the position of footnote mark relative to the
-% start of the line in which they appear (the the option is
+% start of the line in which they appear (the option is
 % incompatible with option \texttt{para}, for obvious reasons).
 %
 % When this option is in effect, the footnote is set
@@ -443,7 +443,7 @@
 % This option sets the footnote mark flush with the margin, and makes
 % the body of the footnote hang at an indentation of
 % \cs{footnotemargin} (if that is a positive distance), or the width
-% of the marker (if \cs{footnotemargin}$\leq0$).  The option code
+% of the marker (if \cs{footnotemargin} $\leq0$).  The option code
 % itself leaves \cs{footnotemargin} at its default value of 1.8em.
 %
 % The footnote itself may of course be longer than one paragraph; if
@@ -873,7 +873,7 @@
 %
 % \subsubsection{The \texttt{bottomfloats} option}
 %
-% \begin{macro}{ds@bottomfloats,ds@bottomfootnotes}
+% \begin{macro}{ds@bottomfloats}
 %    This option is for case 2. By default the footnotes are above
 %    (close to the text).
 %    \begin{macrocode}
