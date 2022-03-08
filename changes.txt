@@ -1,3 +1,15 @@
+2022-03-08  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx (subsection{The other footnote commands}):
+	Also support optional arg of \cs{MakePerPage} (gh/03)
+	
+2022-03-07  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx (subsection{The other footnote commands}):
+	Fix an issue in the perpage package (gh/03)
+	Footnotes on chapter pages in report/book class started with 2.
+	This should really be fixed in the perpage package.
+
 2022-02-14  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx:
