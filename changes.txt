@@ -1,7 +1,7 @@
 2023-05-26  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx (subsection{The output routine configuration components}):
-	Fix an incompatibility with marginfix package (gh/10)
+	Fix a loading order incompatibility with marginfix package (gh/10)
 
 2022-03-08  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
