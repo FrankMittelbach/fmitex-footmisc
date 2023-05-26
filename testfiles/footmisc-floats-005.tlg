@@ -142,7 +142,7 @@ Completed box being shipped out [1]
 ......\penalty 10000
 ......\glue(\parfillskip) 0.0 plus 1.0fil
 ......\glue(\rightskip) 0.0
-.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {1}{\ignorespaces A}}{\thepage }{}\protected@file@percent }}
 .....\glue 10.0
 .....\glue(\baselineskip) 5.16669
 .....\hbox(6.83331+1.94444)x345.0, glue set 146.86107fil
@@ -423,7 +423,7 @@ Completed box being shipped out [2]
 ......\penalty 10000
 ......\glue(\parfillskip) 0.0 plus 1.0fil
 ......\glue(\rightskip) 0.0
-.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {2}{\ignorespaces B}}{\thepage }{}\protected@file@percent }}
 .....\glue 10.0
 .....\glue(\baselineskip) 5.16669
 .....\hbox(6.83331+1.94444)x345.0, glue set 147.0694fil
@@ -476,7 +476,7 @@ Completed box being shipped out [2]
 ......\penalty 10000
 ......\glue(\parfillskip) 0.0 plus 1.0fil
 ......\glue(\rightskip) 0.0
-.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {3}{\ignorespaces C}}{\thepage }{}\protected@file@percent }}
 .....\glue 10.0
 .....\glue(\baselineskip) 5.16669
 .....\hbox(6.83331+1.94444)x345.0, glue set 146.99995fil
@@ -618,7 +618,7 @@ Completed box being shipped out [4]
 ......\penalty 10000
 ......\glue(\parfillskip) 0.0 plus 1.0fil
 ......\glue(\rightskip) 0.0
-.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+.....\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {4}{\ignorespaces D}}{\thepage }{}\protected@file@percent }}
 .....\glue 10.0
 .....\glue(\baselineskip) 5.16669
 .....\hbox(6.83331+1.94444)x345.0, glue set 146.79163fil

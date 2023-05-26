@@ -48,7 +48,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active
 ..\penalty 10000
 ..\glue(\parfillskip) 0.0 plus 1.0fil
 ..\glue(\rightskip) 0.0
-.\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline \ETC.}
+.\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}belowfloats --- flushbottom}{\thepage }{}\protected@file@percent }}
 .\penalty 10000
 .\glue 9.90276 plus 0.86108
 .\glue(\parskip) 0.0 plus 1.0
@@ -222,7 +222,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\rule(0.4+0.0)x*
-...\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+...\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {1}{\ignorespaces A}}{\thepage }{}\protected@file@percent }}
 ...\glue 10.0
 ...\hbox(6.83331+1.94444)x229.5, glue set 89.11107fil
 ....\glue 0.0 plus 1.0fil
@@ -528,7 +528,7 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
-......\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline \ETC.}
+......\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1}belowfloats --- flushbottom}{\thepage }{}\protected@file@percent }}
 ......\penalty 10000
 ......\glue 9.90276 plus 0.86108
 ......\glue(\parskip) 0.0 plus 1.0
@@ -702,7 +702,7 @@ Completed box being shipped out [1]
 .........\glue(\parfillskip) 0.0 plus 1.0fil
 .........\glue(\rightskip) 0.0
 ........\rule(0.4+0.0)x*
-........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {1}{\ignorespaces A}}{\thepage }{}\protected@file@percent }}
 ........\glue 10.0
 ........\hbox(6.83331+1.94444)x229.5, glue set 89.11107fil
 .........\glue 0.0 plus 1.0fil
@@ -988,7 +988,7 @@ Completed box being shipped out [1]
 .........\glue(\parfillskip) 0.0 plus 1.0fil
 .........\glue(\rightskip) 0.0
 ........\rule(0.4+0.0)x*
-........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {2}{\ignorespaces B}}{\thepage }{}\protected@file@percent }}
 ........\glue 10.0
 ........\hbox(6.83331+1.94444)x229.5, glue set 89.3194fil
 .........\glue 0.0 plus 1.0fil
@@ -1088,7 +1088,7 @@ Completed box being shipped out [1]
 .........\glue(\parfillskip) 0.0 plus 1.0fil
 .........\glue(\rightskip) 0.0
 ........\rule(0.4+0.0)x*
-........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {3}{\ignorespaces C}}{\thepage }{}\protected@file@percent }}
 ........\glue 10.0
 ........\hbox(6.83331+1.94444)x229.5, glue set 89.24995fil
 .........\glue 0.0 plus 1.0fil
@@ -1461,7 +1461,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active
 ....\glue(\parfillskip) 0.0 plus 1.0fil
 ....\glue(\rightskip) 0.0
 ...\rule(0.4+0.0)x*
-...\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+...\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {4}{\ignorespaces D}}{\thepage }{}\protected@file@percent }}
 ...\glue 10.0
 ...\hbox(6.83331+1.94444)x229.5, glue set 89.04163fil
 ....\glue 0.0 plus 1.0fil
@@ -1572,7 +1572,7 @@ Completed box being shipped out [3]
 .........\glue(\parfillskip) 0.0 plus 1.0fil
 .........\glue(\rightskip) 0.0
 ........\rule(0.4+0.0)x*
-........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {4}{\ignorespaces D}}{\thepage }{}\protected@file@percent }}
 ........\glue 10.0
 ........\hbox(6.83331+1.94444)x229.5, glue set 89.04163fil
 .........\glue 0.0 plus 1.0fil
@@ -1675,7 +1675,7 @@ Completed box being shipped out [3]
 .........\glue(\parfillskip) 0.0 plus 1.0fil
 .........\glue(\rightskip) 0.0
 ........\rule(0.4+0.0)x*
-........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline \ETC.}
+........\write1{\@writefile{lof}{\protect \contentsline {figure}{\protect \numberline {5}{\ignorespaces E}}{\thepage }{}\protected@file@percent }}
 ........\glue 10.0
 ........\hbox(6.83331+1.94444)x229.5, glue set 89.45828fil
 .........\glue 0.0 plus 1.0fil

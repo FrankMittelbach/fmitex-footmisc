@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 %% File: footmisc.dtx (C) Copyright 1995-2011 Robin Fairbairns
-%%                    (C) Copyright 2018-2022 Frank Mittelbach
+%%                    (C) Copyright 2018-2023 Frank Mittelbach
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -38,7 +38,7 @@
 %<+package>\DeclareCurrentRelease{}{2022-02-14}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2022/03/08 v6.0d
+        [2023/05/26 v6.0e
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -1308,8 +1308,11 @@
 %    Attaching top and bottom floats can usually be done in one go,
 %    but for special layouts we might want more control so we provide
 %    also separate commands.
+%    There are packages out there that patch \cs{@combinefloats} so we
+%    are careful to call it rather than give it a new name.
+% \changes{v6.0e}{2023/05/26}{Fix an incompatibility with marginfix package (gh/10)}
 %    \begin{macrocode}
-\let \@outputbox@attachfloats \@combinefloats
+\def \@outputbox@attachfloats {\@combinefloats}
 %    \end{macrocode}
 %    
 %    \begin{macrocode}

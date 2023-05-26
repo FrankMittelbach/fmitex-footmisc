@@ -1,8 +1,13 @@
+2023-05-26  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx (subsection{The output routine configuration components}):
+	Fix an incompatibility with marginfix package (gh/10)
+
 2022-03-08  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx (subsection{The other footnote commands}):
 	Also support optional arg of \cs{MakePerPage} (gh/03)
-	
+
 2022-03-07  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx (subsection{The other footnote commands}):

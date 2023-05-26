@@ -8,6 +8,7 @@ l3build save \
 	footmisc-005 \
 	footmisc-006 \
 	footmisc-007-rollback \
+	footmisc-008-pdfcol \
 	footmisc-floats-000 \
 	footmisc-floats-001 \
 	footmisc-floats-002 \
