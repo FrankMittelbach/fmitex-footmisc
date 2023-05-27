@@ -1,0 +1,10 @@
+ # copyright
+
+- in README
+- in footmisc.dtx
+- in footmisc.ins
+
+# upload
+
+- change version info in l3build.lua
+

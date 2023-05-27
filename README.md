@@ -17,8 +17,8 @@ The license is LPPL 1.3c.
 -----
 
 Copyright (C) 1995-2011 Robin Fairbairns<br />
-Copyright (C) 2018-2022 Frank Mittelbach<br />
+Copyright (C) 2018-2023 Frank Mittelbach<br />
 <https://latex-project.org/> <br />
-All rights reserved.
+
 
 
