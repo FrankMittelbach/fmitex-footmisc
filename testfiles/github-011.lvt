@@ -6,7 +6,7 @@
 
 
 \input{regression-test}
-\RemoveFromHook{enddocument/info}[kernel/release]
+
 
 \showoutput
 
