@@ -38,7 +38,7 @@
 %<+package>\DeclareCurrentRelease{}{2022-02-14}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2023/05/26 v6.0e
+        [2023/07/05 v6.0f
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -1935,6 +1935,14 @@
       \linewidth \columnwidth
       \advance \linewidth -\leftmargin
       \parshape \@ne \leftmargin \linewidth
+%    \end{macrocode}
+%    We also update \cs{@totalleftmargin} so that display
+%    environments, such as \texttt{quote} if used inside the footnote
+%    know about the hanging indentation (otherwise something like
+%    \texttt{quote} isn't centered in the available space):
+% \changes{v6.0f}{2023/07/05}{Account for indentation due to hang option (gh/11)}
+%    \begin{macrocode}
+      \@totalleftmargin \leftmargin
       \footnotesize
 %    \end{macrocode}
 %

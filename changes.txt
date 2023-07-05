@@ -1,3 +1,9 @@
+2023-07-05  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx:
+	Account for indentation due to hang option so that quote, itemize, etc are
+	properly positioned inside the footnote text (gh/11)
+
 2023-05-26  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx (subsection{The output routine configuration components}):
