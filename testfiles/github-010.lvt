@@ -6,7 +6,7 @@
 \usepackage{marginfix}       % loading order incompatibility!
 
 \input{regression-test}
-\RemoveFromHook{enddocument/info}[kernel/release]
+
 
 \begin{document}
 

@@ -1,7 +1,6 @@
 \documentclass{report}
 
 \input{regression-test}
-\RemoveFromHook{enddocument/info}[kernel/release]
 
 \usepackage[perpage]{footmisc}
 
