@@ -1,6 +1,9 @@
 l3build save \
 	github-001 \
+	github-003 \
+	github-003b \
 	github-010 \
+	github-011 \
 	footmisc-000 \
 	footmisc-001 \
 	footmisc-002 \
