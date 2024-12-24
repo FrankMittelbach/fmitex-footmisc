@@ -1,3 +1,8 @@
+2024-12-24  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx (subsection{The requirements of \cs{@footnotetext}}):
+	Add \@currentcounter added to LaTeX a while back (gh/15)
+
 2023-07-05  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx:

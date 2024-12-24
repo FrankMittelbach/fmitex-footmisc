@@ -1,7 +1,7 @@
 % \iffalse meta-comment
 %
 %% File: footmisc.dtx (C) Copyright 1995-2011 Robin Fairbairns
-%%                    (C) Copyright 2018-2023 Frank Mittelbach
+%%                    (C) Copyright 2018-2024 Frank Mittelbach
 %
 % It may be distributed and/or modified under the conditions of the
 % LaTeX Project Public License (LPPL), either version 1.3c of this
@@ -38,7 +38,7 @@
 %<+package>\DeclareCurrentRelease{}{2022-02-14}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2023/07/05 v6.0f
+        [2024/12/24 v6.0g
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -1615,6 +1615,10 @@
       \floatingpenalty\@MM 
       \hsize\columnwidth
       \@parboxrestore
+%    \end{macrocode}
+% \changes{v6.0g}{2024/12/24}{Add \cs{@currentcounter} added to \LaTeX{} a while back (gh/15)}
+%    \begin{macrocode}
+      \def\@currentcounter{footnote}%
       \protected@edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}%
       \color@begingroup
 %    \end{macrocode}
@@ -1668,6 +1672,10 @@
           \let\baselinestretch\FN@baselinestretch
         \fi
         \reset@font\footnotesize
+%    \end{macrocode}
+% \changes{v6.0g}{2024/12/24}{Add \cs{@currentcounter} added to \LaTeX{} a while back (gh/15)}
+%    \begin{macrocode}
+        \def\@currentcounter{footnote}%
         \protected@edef\@currentlabel{%
           \csname p@footnote\endcsname\@thefnmark
         }%
@@ -1695,6 +1703,10 @@
         \floatingpenalty\@MM 
         \hsize\columnwidth
         \@parboxrestore
+%    \end{macrocode}
+% \changes{v6.0g}{2024/12/24}{Add \cs{@currentcounter} added to \LaTeX{} a while back (gh/15)}
+%    \begin{macrocode}
+        \def\@currentcounter{footnote}%
         \protected@edef\@currentlabel{%
           \csname p@footnote\endcsname\@thefnmark
         }%
