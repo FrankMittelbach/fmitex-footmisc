@@ -38,7 +38,7 @@
 %<+package>\DeclareCurrentRelease{}{2022-02-14}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2024/12/24 v6.0g
+        [2024/12/25 v6.0g
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -403,7 +403,7 @@
 % a somewhat strange discrepancy: on most pages the
 % footnotes are attached a distance of \cs{skip}\cs{footins} from the
 % main text, even if that page is run short (i.e., with
-% \cs{raggedbottom} in force). However, whenever the is some
+% \cs{raggedbottom} in force). However, whenever there is some
 % infinite stretch at the end of the page, e.g., from using \cs{newpage} or
 % \cs{clearpage} the footnotes are pushed to the bottom (in particular
 % on the last page of a document or chapter).
@@ -484,7 +484,7 @@
 % \end{tabular}
 % \end{center}
 % By default, \cs{mpfootnoterule} and \cs{pagefootnoterule} retain the
-% original definition of \cs{footnoterule} (which nay have been
+% original definition of \cs{footnoterule} (which may have been
 % modified by a \texttt{norule} option), while \cs{splitfootnoterule}
 % becomes a full-width rule.
 %
@@ -1166,7 +1166,7 @@
 %
 %    This is fixed by \cs{@outputbox@removebskip} but only if the
 %    switch \texttt{FN@fixskip} is set to true (which is done whenever
-%    \pkg{footmisc} is called with with an option specifying the
+%    \pkg{footmisc} is called with an option specifying the
 %    footnote placement, i.e., not  in the default case).
 %    \begin{macrocode}
 \ifFN@fixskip
@@ -1450,7 +1450,7 @@
   \ifFN@abovefloats
 %---------------------------------------------------------
 %    \end{macrocode}
-%    If footnotes above floats floats both are at the bottom:
+%    If footnotes above floats then both are at the bottom:
 %    \begin{macrocode}
     \def\@makecol@appendblocks {%
        \@if@footnotes@TF
