@@ -1,3 +1,8 @@
+2025-03-10  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx:
+	Make use of the new sockets in LaTeX 2025-06-01
+
 2024-12-24  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx (subsection{The requirements of \cs{@footnotetext}}):
