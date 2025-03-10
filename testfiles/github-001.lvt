@@ -9,7 +9,7 @@
 \clubpenalties 2 10000 0
 
 \usepackage[bottom]{footmisc}
-\usepackage{lipsum}
+\usepackage{kantlipsum}
 
 \input{regression-test}
 
@@ -22,10 +22,10 @@
 \chapter{Hello}
 \section{Test 1}
 
-\lipsum[1]\footnote{Footnote: This is a test.
-  \lipsum[1][1]
+\kant[1]\footnote{Footnote: This is a test.
+  \kant[1][1]
 }
-\lipsum[2-4]
+\kant[2-4]
 
 \newpage
 \OMIT
