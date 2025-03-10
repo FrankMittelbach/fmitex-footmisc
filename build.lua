@@ -18,7 +18,7 @@ checkruns     = 2
 
 uploadconfig = {
  pkg = "footmisc",
- version = "v6.0g 2024-12-24",
+ version = "v7.0a 2025-03-10",
  author = "Frank Mittelbach",
  license = "lppl1.3c",
  summary = "A range of footnote options",
