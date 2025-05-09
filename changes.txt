@@ -1,3 +1,9 @@
+2025-05-09  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
+
+	* footmisc.dtx (section{Code: Preliminaries}):
+	Use \IfFormatAtLeastTF because \IfFormatAtLeastF was introduced
+	only fairly recently (gh/20)
+
 2025-03-10  Frank Mittelbach  <Frank.Mittelbach@latex-project.org>
 
 	* footmisc.dtx:

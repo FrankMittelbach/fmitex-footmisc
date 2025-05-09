@@ -39,7 +39,7 @@
 %<+package>\DeclareCurrentRelease{}{2025-03-10}
 %<package>\ProvidesPackage{footmisc}%
 %<*!debugins>
-        [2025/03/10 v7.0a
+        [2025/05/09 v7.0b
 %</!debugins>
 %<package>     a miscellany of footnote facilities%
 %<*dtx>
@@ -631,8 +631,10 @@
 % this file runs with an earlier kernel, we use version 6 instead and
 % the current file ends with the next line. 
 % \changes{v7.0a}{2025/03/10}{Make use of the new sockets in \LaTeX{} 2025-06-01}
+% \changes{v7.0b}{2025/05/09}{Use \cs{IfFormatAtLeastTF} because
+%    \cs{IfFormatAtLeastF} was introduced only fairly recently (gh/20)}
 %    \begin{macrocode}
-\IfFormatAtLeastF{2025-06-01}{\input{footmisc-2022-02-14.sty}\endinput}
+\IfFormatAtLeastTF{2025-06-01}{}{\input{footmisc-2022-02-14.sty}\endinput}
 %    \end{macrocode}
 % The rest is the code for version 7.
 %

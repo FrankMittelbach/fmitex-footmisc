@@ -1,0 +1,86 @@
+
+\documentclass{article}
+\usepackage[abovefloats]{footmisc}
+\usepackage{lipsum}
+
+% this rule indicates the starting location of \skip\footins
+\newbox\fnhtbox
+\setbox\fnhtbox=\hbox{\rule{1em}{\dimexpr\footnotesep+\skip\footins}}
+\dp\fnhtbox=0pt
+\ht\fnhtbox=0pt
+
+\input{regression-test}
+
+\makeatletter
+\def \newpage {%
+  \if@noskipsec
+    \ifx \@nodocument\relax
+      \leavevmode
+      \global \@noskipsecfalse
+    \fi
+  \fi
+  \if@inlabel
+    \leavevmode
+    \global \@inlabelfalse
+  \fi
+  \if@nobreak \@nobreakfalse \everypar{}\fi
+  \par
+%  \ifdim\prevdepth>\z@
+%     \vskip \glueexpr 0pt plus 1fil -%
+%       \ifdim\prevdepth>\maxdepth
+%         \maxdepth
+%       \else
+%         \prevdepth
+%       \fi
+%  \fi
+  \vfil
+  \penalty -\@M}
+\makeatother
+
+\showoutput
+
+\begin{document}
+
+\START
+
+\lipsum[1-5]
+
+XXX \lipsum[1-3]
+
+\vfill
+
+\lipsum[4]
+
+\newpage
+
+
+
+
+\section{Page 1: the normal page break}
+\lipsum[1-3]%
+\footnote{\usebox\fnhtbox This footnote has \texttt{\string\skip\string\footins} counting from the \emph{\textbf{bottom}} of the main text.}
+
+\lipsum[4-5]
+
+\section{Page 2: manual \texttt{\string\pagebreak}}
+\lipsum[6]%
+\footnote{\usebox\fnhtbox This footnote has \texttt{\string\skip\string\footins} counting from the \emph{\textbf{bottom}} of the main text.}
+
+\lipsum[7]\pagebreak
+
+\section{Page 3: manual \texttt{\string\newpage}}
+\lipsum[8]%
+\footnote{\usebox\fnhtbox While this corrected footnote has \texttt{\string\skip\string\footins} counting from the \emph{\textbf{baseline}} of the main text.}
+
+\lipsum[9]q\newpage
+
+\section{Page 4: implicit \texttt{\string\newpage} at the end}
+\lipsum[10]%
+\footnote{\usebox\fnhtbox While this corrected footnote has \texttt{\string\skip\string\footins} counting from the \emph{\textbf{baseline}} of the main text.}
+
+\lipsum[11]
+
+
+\end{document}
+
+
