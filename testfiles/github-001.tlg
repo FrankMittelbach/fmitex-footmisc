@@ -16,9 +16,8 @@ Underfull \vbox (badness 10000) has occurred while \output is active
 .\write-{}
 .\write-{}
 .\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \numberline {1}Hello}{\thepage }{}\protected@file@percent }}
-.\marks1{\__mark_id:n {1}\MakeUppercase    []{Chapter\ 1. \ Hello}}
-.\marks2{\__mark_id:n {2}}
-.\mark{{\MakeUppercase    []{Chapter\ 1. \ Hello}}{}}
+.\marks1{\__mark_value:nn {1}{\MakeUppercase    []{Chapter\ 1. \ Hello}}}
+.\marks2{\__mark_value:nn {2}{}}
 .\write1{\@writefile{lof}{\protect \addvspace {10\p@ }}}
 .\write1{\@writefile{lot}{\protect \addvspace {10\p@ }}}
 .\glue(\topskip) 0.144
@@ -39,9 +38,8 @@ Underfull \vbox (badness 10000) has occurred while \output is active
 ..\penalty 10000
 ..\glue(\parfillskip) 0.0 plus 1.0fil
 ..\glue(\rightskip) 0.0
-.\marks2{\__mark_id:n {3}\MakeUppercase    []{1.1. \ Test 1}}
-.\marks3{\__mark_id:n {4}\MakeUppercase    []{1.1. \ Test 1}}
-.\mark{{\MakeUppercase    []{Chapter\ 1. \ Hello}}{\MakeUppercase    []{1.1. \ Test 1}}}
+.\marks2{\__mark_value:nn {3}{\MakeUppercase    []{1.1. \ Test 1}}}
+.\marks3{\__mark_value:nn {4}{\MakeUppercase    []{1.1. \ Test 1}}}
 .\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1.1}Test 1}{\thepage }{}\protected@file@percent }}
 .\penalty 10000
 .\glue 11.88335 plus 1.03331
@@ -1181,9 +1179,8 @@ Completed box being shipped out [1]
 ......\write-{}
 ......\write-{}
 ......\write1{\@writefile{toc}{\protect \contentsline {chapter}{\protect \numberline {1}Hello}{\thepage }{}\protected@file@percent }}
-......\marks1{\__mark_id:n {1}\MakeUppercase    []{Chapter\ 1. \ Hello}}
-......\marks2{\__mark_id:n {2}}
-......\mark{{\MakeUppercase    []{Chapter\ 1. \ Hello}}{}}
+......\marks1{\__mark_value:nn {1}{\MakeUppercase    []{Chapter\ 1. \ Hello}}}
+......\marks2{\__mark_value:nn {2}{}}
 ......\write1{\@writefile{lof}{\protect \addvspace {10\p@ }}}
 ......\write1{\@writefile{lot}{\protect \addvspace {10\p@ }}}
 ......\glue(\topskip) 0.144
@@ -1204,9 +1201,8 @@ Completed box being shipped out [1]
 .......\penalty 10000
 .......\glue(\parfillskip) 0.0 plus 1.0fil
 .......\glue(\rightskip) 0.0
-......\marks2{\__mark_id:n {3}\MakeUppercase    []{1.1. \ Test 1}}
-......\marks3{\__mark_id:n {4}\MakeUppercase    []{1.1. \ Test 1}}
-......\mark{{\MakeUppercase    []{Chapter\ 1. \ Hello}}{\MakeUppercase    []{1.1. \ Test 1}}}
+......\marks2{\__mark_value:nn {3}{\MakeUppercase    []{1.1. \ Test 1}}}
+......\marks3{\__mark_value:nn {4}{\MakeUppercase    []{1.1. \ Test 1}}}
 ......\write1{\@writefile{toc}{\protect \contentsline {section}{\protect \numberline {1.1}Test 1}{\thepage }{}\protected@file@percent }}
 ......\penalty 10000
 ......\glue 11.88335 plus 1.03331
@@ -2291,7 +2287,7 @@ Completed box being shipped out [1]
 ....\rule(*+*)x0.0
 ....\glue 0.0 plus 1.0fil
 ....\hbox(391.22224+0.0)x229.5
-.....\vbox(391.22224+0.0)x229.5, glue set 7.02225fill
+.....\vbox(391.22224+0.0)x229.5, glue set 7.02225fil
 ......\glue(\topskip) 2.48973
 ......\hbox(9.51027+2.33331)x229.5, glue set 0.70259
 .......\hbox(0.0+0.0)x11.74988
@@ -3483,7 +3479,7 @@ Completed box being shipped out [1]
 .......\glue 3.91663 plus 1.95831 minus 1.30554
 .......\OT1/cmr/m/n/12 a
 .......\glue(\rightskip) 0.0
-......\glue 0.0 plus 1.0fill
+......\glue 0.0 plus 1.0fil
 ......\glue 10.8 plus 4.0 minus 2.0
 ......\kern -3.0
 ......\rule(0.4+0.0)x91.7986
